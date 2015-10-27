@@ -3,15 +3,59 @@
 }
 
 <!DOCTYPE html>
-
-<html>
+<html ng-app="FractalApp">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>Fractal</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="/Content/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/workplace.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/article.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/footer.css">
 </head>
-<body>
-    <div>
-        <h1>Index</h1>
+<body ng-controller="dataController">
+    <div class="header clearfix">
+        <h1>Fractal#demo</h1>
+        <div class="controll">
+            <button class="customization-button" ng-click="show_setting = !show_setting"></button>
+            <button ng-click="shower.clearBinding()" ng-show="shower.state() !== 'grid'">Вернуться к сетке элементов</button>
+            <button ng-click="linker.disable()" ng-show="linker.isSelecting()">Выйти из режима создания связей</button>
+        </div>
+        <div ng-include="'/Content/partials/setting.html'" ng-show="show_setting"></div>
     </div>
+
+    <div ng-switch="shower.state()">
+        <div ng-switch-when="grid">
+            <div ng-include="'/Content/partials/workplace.html'"></div>
+        </div>
+
+        <div ng-switch-when="relations">
+            <div ng-include="'/Content/partials/relations.html'"></div>
+        </div>
+
+        <button ng-click="show_data = !show_data">Показать данные</button>
+        <pre ng-show="show_data" style="background: #aaa;">{{ {setting:setting, shower: shower, items:items} | json }}</pre>
+    </div>
+
+
+
+    <div class="footer">
+        Made by <a href="">&copy;Suhoy</a>
+    </div>
+
+    <script src="/Content/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/Content/bower_components/jquery-ui/ui/core.js"></script>
+    <script src="/Content/bower_components/jquery-ui/ui/widget.js"></script>
+    <script src="/Content/bower_components/jquery-ui/ui/mouse.js"></script>
+    <script src="/Content/bower_components/jquery-ui/ui/sortable.js"></script>
+    <script src="/Content/bower_components/angular/angular.js"></script>
+    <script src="/Content/bower_components/angular-ui-sortable/sortable.js"></script>
+    <script src="/Content/js/app.js"></script>
+    <script src="/Content/js/itemfactory.js"></script>
+    <script src="/Content/js/gridmaster.js"></script>
+    <script src="/Content/js/linker.js"></script>
+    <script src="/Content/js/shower.js"></script>
+    <script src="/Content/js/controllers.js"></script>
+    <script src="/Content/js/directives.js"></script>
 </body>
 </html>
