@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{4BA02657-D5DF-45B0-9B6C-F4B69F4116A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalApi.Tests", "FractalApi.Tests\FractalApi.Tests.csproj", "{577F6C44-C917-4C0E-819C-551229CAF8EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{035D09A6-261D-4811-96D9-1035B3335475}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalApi", "FractalApi\FractalApi.csproj", "{B19669AB-27C9-4B63-AEBD-80F8CAF90596}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4BA02657-D5DF-45B0-9B6C-F4B69F4116A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BA02657-D5DF-45B0-9B6C-F4B69F4116A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BA02657-D5DF-45B0-9B6C-F4B69F4116A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BA02657-D5DF-45B0-9B6C-F4B69F4116A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{577F6C44-C917-4C0E-819C-551229CAF8EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{577F6C44-C917-4C0E-819C-551229CAF8EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{577F6C44-C917-4C0E-819C-551229CAF8EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{577F6C44-C917-4C0E-819C-551229CAF8EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B19669AB-27C9-4B63-AEBD-80F8CAF90596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B19669AB-27C9-4B63-AEBD-80F8CAF90596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B19669AB-27C9-4B63-AEBD-80F8CAF90596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B19669AB-27C9-4B63-AEBD-80F8CAF90596}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
