@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.Abstract;
+using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,31 +11,35 @@ namespace FractalApi.Controllers
 {
     public class NoteController : ApiController
     {
-        // GET api/note
-        public IEnumerable<string> Get()
+        private INoteRepository db;
+
+        public NoteController(INoteRepository db)
         {
-            return new string[] { "value1", "value2" };
+            this.db = db;
         }
 
-        // GET api/note/5
-        public string Get(int id)
+        [HttpPost]
+        public Note Create(Note note)
         {
-            return "value";
+            return db.Create(note);
         }
 
-        // POST api/note
-        public void Post([FromBody]string value)
+        [HttpPut]
+        public void Update(Note note)
         {
-        }
-
-        // PUT api/note/5
-        public void Put(int id, [FromBody]string value)
-        {
+            if (db.Exist(note.Id))
+            {
+                db.Update(note);
+            }
         }
 
         // DELETE api/note/5
         public void Delete(int id)
         {
+            if( db.Exist(id))
+            {
+                db.Delete(id);
+            }
         }
     }
 }

@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Abstract
 {
-    interface INoteRepository
+    public interface INoteRepository
     {
-        Note Get(int Id);
         Note Create(Note note);
         void Update(Note note);
         void Delete(int Id);
