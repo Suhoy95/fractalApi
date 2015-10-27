@@ -24,11 +24,11 @@ namespace FractalApi.Controllers
         }
 
         [HttpPost]
-        public void Create(Article article)
+        public Article Create(Article article)
         {
             if(db.Count(article.Slug) == 0)
             {
-                db.Create(article);
+                return db.Create(article);
             }
         }
 
