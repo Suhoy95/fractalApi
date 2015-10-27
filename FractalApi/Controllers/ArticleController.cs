@@ -4,36 +4,49 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Domain.Abstract;
+using Domain.Entities;
 
 namespace FractalApi.Controllers
 {
     public class ArticleController : ApiController
     {
-        // GET api/article
-        public IEnumerable<string> Get()
+        private IArticleRepository db;
+
+        public ArticleController(IArticleRepository db)
         {
-            return new string[] { "value1", "value2" };
+            this.db = db;
+        }
+        
+        public Article Get(string slug)
+        {
+            return db.Get(slug);
         }
 
-        // GET api/article/5
-        public string Get(int id)
+        [HttpPost]
+        public void Create(Article article)
         {
-            return "value";
+            if(db.Count(article.Slug) == 0)
+            {
+                db.Create(article);
+            }
         }
 
-        // POST api/article
-        public void Post([FromBody]string value)
+        [HttpPut]
+        public void Update(Article article)
         {
+            if(db.Exist(article.Id) && db.Count(article.Slug) <= 1)
+            {
+                db.Update(article);
+            }
         }
 
-        // PUT api/article/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/article/5
         public void Delete(int id)
         {
+            if(db.Exist(id))
+            {
+                db.Delete(id);
+            }
         }
     }
 }
