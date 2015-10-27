@@ -30,6 +30,7 @@ namespace FractalApi.Controllers
             {
                 return db.Create(article);
             }
+            return null;
         }
 
         [HttpPut]

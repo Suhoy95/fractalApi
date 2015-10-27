@@ -13,6 +13,7 @@ namespace FractalApi.App_Start
     using FakeItEasy;
     using Domain.Abstract;
     using Domain.Entities;
+    using Domain.FakesDb;
 
     public static class NinjectWebCommon 
     {
@@ -58,17 +59,9 @@ namespace FractalApi.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            var fakeDb = A.Fake<IGridRepository>();
-            A.CallTo(() => fakeDb.Get("main")).Returns(new Grid()
-            {
-                Slug = "main",
-                Title = "Fractal",
-                Width = 4,
-                FixedWidth = true,
-                Items = new Item[0][]
-            });
-
-            kernel.Bind<IGridRepository>().ToConstant(fakeDb);
+            kernel.Bind<IGridRepository>().ToConstant(FakeFactory.GetGridRepository());
+            kernel.Bind<INoteRepository>().ToConstant(FakeFactory.GetNoteRepository());
+            kernel.Bind<IArticleRepository>().ToConstant(FakeFactory.GetArticleRepository());
         }        
     }
 }
