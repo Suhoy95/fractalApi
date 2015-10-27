@@ -28,6 +28,7 @@ namespace Domain.Entities
 
     public class PartialGrid
     {
+        public int Id { get; set; }
         public String Slug { get; set; }
         public String Title { get; set; }
         public int Width { get; set; }

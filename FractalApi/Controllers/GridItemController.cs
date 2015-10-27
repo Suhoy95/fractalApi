@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.Abstract;
+using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,31 +11,26 @@ namespace FractalApi.Controllers
 {
     public class GridItemController : ApiController
     {
-        // GET api/griditem
-        public IEnumerable<string> Get()
+        private IGridRepository db;
+
+        public GridItemController(IGridRepository db)
         {
-            return new string[] { "value1", "value2" };
+            this.db = db;
         }
 
-        // GET api/griditem/5
-        public string Get(int id)
+        [HttpPost]
+        public GridItem Create(GridItem grid)
         {
-            return "value";
+            return db.Create(grid);
         }
 
-        // POST api/griditem
-        public void Post([FromBody]string value)
+        [HttpPut]
+        public void Update(GridItem grid)
         {
-        }
-
-        // PUT api/griditem/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/griditem/5
-        public void Delete(int id)
-        {
+            if(db.Exsist(grid.Id))
+            {
+                db.Update(grid);
+            }
         }
     }
 }

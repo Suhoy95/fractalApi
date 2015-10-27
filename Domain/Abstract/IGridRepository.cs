@@ -9,9 +9,9 @@ namespace Domain.Abstract
 {
     public interface IGridRepository
     {
-        Grid GetGrid(String slug);
-        bool DeleteGrid(String slug);
-        bool Exsist(String slug);
+        Grid Get(String slug);
+        bool Delete(int id);
+        bool Exsist(int id);
 
         GridItem Create(GridItem grid);
         void Update(GridItem grid);

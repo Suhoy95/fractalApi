@@ -59,7 +59,7 @@ namespace FractalApi.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             var fakeDb = A.Fake<IGridRepository>();
-            A.CallTo(() => fakeDb.GetGrid("main")).Returns(new Grid()
+            A.CallTo(() => fakeDb.Get("main")).Returns(new Grid()
             {
                 Slug = "main",
                 Title = "Fractal",

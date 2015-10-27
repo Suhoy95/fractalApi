@@ -20,16 +20,24 @@ namespace FractalApi.Controllers
 
         public Grid Get(string slug)
         {
-            return db.GetGrid(slug);
+            return db.Get(slug);
         }
 
-        public bool Delete(string slug)
+        [HttpPut]
+        public void Update(PartialGrid grid)
         {
-            if(db.Exsist(slug))
+            if(db.Exsist(grid.Id))
             {
-                return db.DeleteGrid(slug);
+                db.Update(grid);
             }
-            return false;
+        }
+
+        public void Delete(int Id)
+        {
+            if(db.Exsist(Id))
+            {
+                db.Delete(Id);
+            }
         }
     }
 }
