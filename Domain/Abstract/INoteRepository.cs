@@ -9,11 +9,11 @@ namespace Domain.Abstract
 {
     interface INoteRepository
     {
-        public Note Get(int Id);
-        public Note Create(Note note);
-        public void Update(Note note);
-        public void Delete(int Id);
+        Note Get(int Id);
+        Note Create(Note note);
+        void Update(Note note);
+        void Delete(int Id);
 
-        public bool Exist(int Id);
+        bool Exist(int Id);
     }
 }

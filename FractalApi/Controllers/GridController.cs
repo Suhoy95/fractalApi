@@ -25,7 +25,7 @@ namespace FractalApi.Controllers
 
         public bool Delete(string slug)
         {
-            if(db.isGirdExsist(slug))
+            if(db.Exsist(slug))
             {
                 return db.DeleteGrid(slug);
             }

@@ -9,11 +9,11 @@ namespace Domain.Abstract
 {
     interface IArticleRepository
     {
-        public Article Get(int Id);
-        public Article Create(Article article);
-        public void Update(Article article);
-        public void Delete(int Id);
+        Article Get(int Id);
+        Article Create(Article article);
+        void Update(Article article);
+        void Delete(int Id);
 
-        public bool Exist(int Id);
+        bool Exist(int Id);
     }
 }
