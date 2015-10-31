@@ -14,12 +14,13 @@ namespace Domain.FakesDb
         public static IGridRepository GetGridRepository()
         {
             var item = new Item(){
-                Id = 1,
-                Analogy = new int[1]{1},
-                Sub = new int[1] { 1 },
-                Sup = new int[1] { 1 },
-                Title = "Fractal",
-                Text = "Добро пожаловать!"
+                id = 1,
+                type = "note",
+                analogy = new int[1]{1},
+                sub = new int[1] { 1 },
+                sup = new int[1] { 1 },
+                title = "Fractal",
+                text = "Добро пожаловать!"
             };
 
             var fake = A.Fake<IGridRepository>();

@@ -27,7 +27,7 @@ namespace FractalApi.Controllers
         [HttpPut]
         public void Update(Note note)
         {
-            if (db.Exist(note.Id))
+            if (db.Exist(note.id))
             {
                 db.Update(note);
             }

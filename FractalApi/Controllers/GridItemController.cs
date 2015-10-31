@@ -27,7 +27,7 @@ namespace FractalApi.Controllers
         [HttpPut]
         public void Update(GridItem grid)
         {
-            if(db.Exsist(grid.Id))
+            if(db.Exsist(grid.id))
             {
                 db.Update(grid);
             }

@@ -1,0 +1,18 @@
+<div class="workplace clearfix" complite-width="1">
+    <div class="column" ng-repeat="item in [shower.currentItem]">
+        <div ng-include="'/Content/partials/item/' + item.type + '.html'" ng-controller="itemController"></div>
+    </div>
+</div>
+<div class="workplace clearfix" ng-controller="gridController" comlite-width="{{setting.minWidth}}">
+    <div class="title">Показаны:
+        <span ng-show="shower.bindings.analogy">аналогии<button ng-click="unsetBinding('analogy')">Х</button></span>
+        <span ng-show="shower.bindings.sub">подэлементы<button ng-click="unsetBinding('sub')">Х</button></span>
+        <span ng-show="shower.bindings.sup">надэлементы<button ng-click="unsetBinding('sup')">Х</button></span>
+    </div>
+
+     <div class="column" ng-repeat="column in filterItems">
+        <div ng-repeat="item in column">
+            <div ng-include="'/Content/partials/item/' + item.type + '.html'" ng-controller="itemController"></div>
+        </div>
+    </div>
+</div>

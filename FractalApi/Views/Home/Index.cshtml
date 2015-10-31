@@ -1,9 +1,10 @@
-﻿@{
+﻿@model String
+@{
     Layout = null;
 }
 
 <!DOCTYPE html>
-<html ng-app="FractalApp">
+<html ng-app="FractalApp" ng-controller="dataController">
 <head>
     <title>Fractal</title>
     <meta charset="utf-8">
@@ -13,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="/Content/css/article.css">
     <link rel="stylesheet" type="text/css" href="/Content/css/footer.css">
 </head>
-<body ng-controller="dataController">
+<body>
     <div class="header clearfix">
         <h1>Fractal#demo</h1>
         <div class="controll">
@@ -33,11 +34,9 @@
             <div ng-include="'/Content/partials/relations.html'"></div>
         </div>
 
-        <button ng-click="show_data = !show_data">Показать данные</button>
-        <pre ng-show="show_data" style="background: #aaa;">{{ {setting:setting, shower: shower, items:items} | json }}</pre>
     </div>
 
-
+    <pre ng-show="true" style="background: #aaa;">{{ {status: status, shower: shower, items:items, setting: setting} | json }}</pre>
 
     <div class="footer">
         Made by <a href="">&copy;Suhoy</a>
@@ -51,6 +50,7 @@
     <script src="/Content/bower_components/angular/angular.js"></script>
     <script src="/Content/bower_components/angular-ui-sortable/sortable.js"></script>
     <script src="/Content/js/app.js"></script>
+    <script src="/Content/js/connection.js"></script>
     <script src="/Content/js/itemfactory.js"></script>
     <script src="/Content/js/gridmaster.js"></script>
     <script src="/Content/js/linker.js"></script>

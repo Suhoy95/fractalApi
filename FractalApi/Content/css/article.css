@@ -1,0 +1,96 @@
+.blackboard {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    min-height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.blackboard .article {
+    position: relative;
+    min-width: 60em;
+    max-width: 70%;
+    margin: 4em auto;
+    padding: 1em 5em 5em 5em;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid;
+}
+
+.blackboard .article h2 {
+    padding: 0 0 0 3em;
+    margin: 0 0 0.5em 0;
+    font-size: 3em;
+}
+
+.blackboard .article p {
+    margin-bottom: 1em;
+    line-height: 1.6em;
+    font-size: 1.1em;
+    text-align: justify;
+}
+
+.article .controll{
+    position: absolute;
+    top: 1em;
+    right: 1em;
+}
+
+.article .controll button {
+    height: 1.4em;
+    min-width: 1.4em;
+    padding: 0.2em;
+    margin:0 0em 0 0.5em;
+    background-color: rgba(255, 255, 255, 0.9);
+    line-height: 1em;
+    font-size: 1.2em;
+}
+
+.article .controll button:hover {
+    background-color: rgba(150, 150, 150, 0.25);
+    cursor: pointer;
+}
+.article .controll button:active {
+    background-color: rgba(51, 51, 51, 0.9);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.article .controll .edit-item { background: url("img/edit-icon.png") 0 0 no-repeat; background-size: 1.4em; }
+.article .controll .edit-item:active { background-image: url("img/edit-icon-active.png"); background-size: 1.4em; }
+
+.article .controll .delete-item { background: url("img/delete-icon.png") 0 0 no-repeat; background-size: 1.4em; }
+.article .controll .delete-item:active{ background-image: url("img/delete-icon-active.png"); background-size: 1.4em; }
+
+.article .controll .analogy,
+.article .controll .sup-item,
+.article .controll .sub-item {padding-left: 1.4em;}
+
+.article .controll .analogy { background: url("img/analogy-item.png") 0 0 no-repeat; background-size: 1.4em; }
+.article .controll .analogy:active { background-image: url("img/analogy-item-active.png"); background-size: 1.4em; }
+
+.article .controll .sup-item { background: url("img/sup-item.png") 0 0 no-repeat; background-size: 1.4em; }
+.article .controll .sup-item:active{ background-image: url("img/sup-item-active.png"); background-size: 1.4em; }
+
+.article .controll .sub-item { background: url("img/sub-item.png") 0 0 no-repeat; background-size: 1.4em; }
+.article .controll .sub-item:active{ background-image: url("img/sub-item-active.png"); background-size: 1.4em; }
+
+/* edit */
+.blackboard .article label{display: block; clear: both;}
+
+.blackboard .article .title {
+    display: block;
+    float: left;
+    padding: 0.5em 0;
+    margin: 0 0 0.5em 0;
+    font-size: 2em;
+}
+.blackboard .article .title input { font-size: 1em;}
+
+.blackboard .article textarea {
+    display: block;
+    width: 100%;
+    min-height: 5em;
+    margin: 1em 0 1em 0;
+    padding:1em;
+    resize: none;
+}

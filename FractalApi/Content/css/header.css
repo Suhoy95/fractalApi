@@ -1,0 +1,75 @@
+.header {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 2em;
+  padding: 0.5em 0 1em 0;
+  background: rgba(200, 200,200, 0.7);
+  box-shadow: 0 0 0.5em 0.01em rgba(50, 50, 50, 0.4);
+  border-bottom: 1px solid rgba(150, 150, 150, 0.4);
+  z-index: 100;
+}
+
+.header h1 {
+  position:relative;
+  float:left;
+  left: 2em;
+  color: rgba(0,0,0,0.67);
+}
+
+.header .controll{
+  margin: 0.35em 1em 0 0;
+}
+
+.header .controll button {
+  height: 2em; 
+  margin: 0 1em  0 0;
+  background-color: rgba(0,0,0,0);
+}
+
+.header .controll button:hover {
+  background-color:rgba(250,250,250, 0.8);
+}
+
+.header .controll button:active {
+  background-color:rgba(51,51,51, 0.8);
+}
+
+.header .customization-button {
+  width: 2em;
+  height: 2em;
+  background: url('img/settings.png');
+  background-size: 2em;
+}
+
+.header .customization-button:hover {
+  cursor: pointer;
+}
+
+.header .customization-button:active {
+  background-image: url('img/settings-active.png');
+  background-size: 2em;
+}
+
+.header .customization-bar {
+  position: absolute;
+  top: 2.9em; right: 0.5em;
+  width: 18em;
+  min-height: 20em;
+  padding: 1em;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0.5em 0.5em 0.4em 0.01em rgba(0,0,0, 0.2);
+  border: 1px solid rgba(150, 150, 150, 0.3);
+}
+
+.header .customization-bar h2 {
+  position:relative;
+  left: 0.2em;
+  margin-bottom: 0.3em;
+  color: rgba(0,0,0,0.67);
+}
+
+.header .customization-bar label {
+  display: block;
+  padding: 0.1em 0;
+}

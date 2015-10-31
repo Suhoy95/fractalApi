@@ -11,7 +11,7 @@ namespace FractalApi.Controllers
         //
         // GET: /Home/
 
-        public ActionResult Index()
+        public ActionResult Index(String path)
         {
             return View();
         }

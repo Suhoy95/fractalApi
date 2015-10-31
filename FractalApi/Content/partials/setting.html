@@ -1,0 +1,18 @@
+<div class="customization-bar" ng-controller="settingController">
+    <h2> Настройки </h2>
+    <label>Минимальная ширина: <input type="text" 
+                                      ng-model = "setting.minWidth"
+                                      min="1"
+                                      ng-change = "changeSetting()"><br>
+    </label> 
+    
+    <label>
+            <input type="checkbox" 
+                   ng-model="setting.fixedWidth"
+                   ng-change="changeSetting()">
+            Зафиксировать ширину
+    </label>
+    <br>
+    <p>текущая ширина: {{setting.width}}</p>
+    <p>текущая высота: {{setting.height}}</p>
+</div>

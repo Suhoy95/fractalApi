@@ -36,7 +36,7 @@ namespace FractalApi.Controllers
         [HttpPut]
         public void Update(Article article)
         {
-            if(db.Exist(article.Id) && db.Count(article.Slug) <= 1)
+            if(db.Exist(article.id) && db.Count(article.Slug) <= 1)
             {
                 db.Update(article);
             }

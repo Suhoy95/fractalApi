@@ -1,0 +1,87 @@
+<div ng-switch="item.state">
+
+    <div class="item note" ng-switch-when="save">
+                    
+        <h2>{{item.title}}</h2>
+        
+        <div class="controll clearfix">
+            <button class="delete-item" title="Удалить" ng-click="deleteNote(item)"></button>
+            <button class="edit-item" title="Редактировать" ng-click="item.edit()"></button>
+            <span class="button sort-item" title="Переместить" ng-show="shower.state() == 'grid'"></span>
+            <button class="analogy" title="Показать аналогии" 
+                    ng-click="setBinding(item, 'analogy')"
+                    ng-disabled="item.analogy.length == 0">
+                    {{item.analogy.length}}
+            </button> 
+            <button class="sub-item" title="Показать подэлементы"
+                    ng-click="setBinding(item, 'sub')"
+                    ng-disabled="item.sub.length == 0">
+                    {{item.sub.length}}
+            </button>
+            <button class="sup-item" title="Показать надэлементы"
+                    ng-click="setBinding(item, 'sup')"
+                    ng-disabled="item.sup.length == 0">
+                    {{item.sup.length}}
+            </button>                    
+        </div>
+
+        <div class="description">
+            {{item.text}}
+        </div>
+
+        <div ng-show="linker.isSelecting()"  ng-switch="linker.currentItem.whatBinding(item)">
+
+            <div class="cover" ng-switch-when="" ng-switch="linker.binding" ng-click="linker.bind(item)">
+                <p ng-switch-when="analogy">Нажмите, что бы сделать этот элемент аналогичным</p>
+                <p ng-switch-when="sub">Нажмите, что бы сделать этот элемент подэлементом</p>
+                <p ng-switch-when="sup">Нажмите, что бы сделать этот элемент надэлементом</p>
+            </div>
+
+            <div class="cover" ng-class="{analogy: linker.currentItem.isAnalogy(item),
+                                          sup: linker.currentItem.isSup(item),
+                                          sub: linker.currentItem.isSub(item)}" 
+
+                ng-switch-default>
+                <p>
+                    Этот элемент является <span ng-switch="linker.currentItem.whatBinding(item)">
+                                            <span ng-switch-when="analogy">аналогией</span>
+                                            <span ng-switch-when="sub">подэлементом</span>
+                                            <span ng-switch-when="sup">надэлементом</span>
+                                          </span><br> 
+                    (<a ng-click="linker.unbind(item)">Нажвите сюда, чтобы удалить связь</a>)
+                </p>
+            </div>        
+
+        </div>
+    </div>
+
+
+    <div class="item note edit" ng-switch-when="edit"> 
+        <h2><input type="text" class="title" ng-model="item.title" ></h2>
+        <div class="controll clearfix">
+            <button class="delete-item" title="Удалить" ng-click="deleteNote(item)"></button>
+            <span class="button sort-item" title="Переместить"  ng-show="shower.state() == 'grid'"></span>
+            <button class="analogy" 
+                    title="Создать аналогии"
+                    ng-class="{active: linker.currentItem == item && linker.binding === 'analogy'}" 
+                    ng-click="linker.select(item, 'analogy')">
+                        {{item.analogy.length}}
+            </button> 
+            <button class="sub-item" 
+                    title="Создать подэлементы" 
+                    ng-class="{active: linker.currentItem == item && linker.binding === 'sub'}"
+                    ng-click="linker.select(item, 'sub')">
+                        {{item.sub.length}}
+            </button>
+            <button class="sup-item" 
+                    title="Создать надэлементы" 
+                    ng-class="{active: linker.currentItem == item && linker.binding === 'sup'}"
+                    ng-click="linker.select(item, 'sup')">
+                        {{item.sup.length}}
+            </button>                   
+        </div>
+        <textarea class="description" ng-model="item.text"></textarea>
+        <button class="save-note" ng-click="saveNote(item)">Сохранить</button>
+    </div>
+
+</div>

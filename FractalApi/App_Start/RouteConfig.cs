@@ -15,8 +15,14 @@ namespace FractalApi
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "grid/{path*}",
+                defaults: new { controller = "Home", action = "Index" }
+            );
+
+            routes.MapRoute(
+                name: "Default_2",
+                url: "",
+                defaults: new { controller = "Home", action = "Index" }
             );
         }
     }

@@ -1,0 +1,21 @@
+
+.footer {
+    position: relative;
+    padding: 1em;
+    background: rgba(51, 51, 51, 0.8);
+    color: #fff;
+    text-align: center;
+}
+
+.footer a {
+    color: #eee;
+    border-bottom: none;
+}
+
+.footer a:hover {
+    color: #aaa;
+}
+
+.footer a:active {
+    color: #888;
+}
