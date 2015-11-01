@@ -40,12 +40,6 @@ FractalControllers.controller("dataController", ["$scope", "connection", "gridMa
     $scope.connection.loadGrid();
 }]);
 
-FractalControllers.controller("settingController", ["$scope", "gridMaster" , 
-                                                    function($scope, gridMaster){
-   
-    
-}]);
-
 FractalControllers.controller("gridController", ["$scope", "gridMaster", "$window", "$timeout", 
                                                  function($scope, gridMaster, $window, $timeout){
 

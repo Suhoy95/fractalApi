@@ -14,7 +14,7 @@ function loadGrid()
 {
   var scope = this["scope"];
 
-  var url = "/api" + $location.path();
+  var url = "/api" + ($location.path() == "" ? "/grid/main" : $location.path());
   $http.get(url).success(function(data) {
       scope.status = "ok";
       scope.data = data;
@@ -30,7 +30,10 @@ function loadGrid()
             title: data.Title,
             minWidth: data.Width,
             width: data.Width,
-            fixedWidth: data.FixedWidth
+            fixedWidth: data.FixedWidth,
+            pageTitle: data.PageTitle,
+            pageDescription: data.PageDescription,
+            pageKeywords: data.PageKeywords
       };
       scope.completeGrid();
   }).error(function(){

@@ -38,7 +38,7 @@ namespace Domain.FakesDb
                     new Item[1]{item}
                 },
 
-                PageTitile = "Главная - Fractal",
+                PageTitle = "Главная - Fractal",
                 PageDescription = "",
                 PageKeywords = "",
             });

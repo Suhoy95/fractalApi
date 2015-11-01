@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html ng-app="FractalApp" ng-controller="dataController">
 <head>
-    <title>Fractal</title>
+    <title ng-bind="setting.pageTitle">Fractal</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/Content/css/style.css">
     <link rel="stylesheet" type="text/css" href="/Content/css/header.css">
@@ -16,12 +16,13 @@
 </head>
 <body>
     <div class="header clearfix">
-        <h1>Fractal#demo</h1>
+        <h1 ng-bind="setting.title" >Fractal#demo</h1>
         <div class="controll">
             <button class="customization-button" ng-click="show_setting = !show_setting"></button>
             <button ng-click="shower.clearBinding()" ng-show="shower.state() !== 'grid'">Вернуться к сетке элементов</button>
             <button ng-click="linker.disable()" ng-show="linker.isSelecting()">Выйти из режима создания связей</button>
         </div>
+        <div class="setting_handler" ng-show="show_setting" ng-click="show_setting = !show_setting"></div>
         <div ng-include="'/Content/partials/setting.html'" ng-show="show_setting"></div>
     </div>
 
@@ -36,7 +37,7 @@
 
     </div>
 
-    <pre ng-show="true" style="background: #aaa;">{{ {status: status, shower: shower, items:items, setting: setting} | json }}</pre>
+    <pre ng-show="true" style="background: #aaa;">{{ {status: status, setting: setting, data: data} | json }}</pre>
 
     <div class="footer">
         Made by <a href="">&copy;Suhoy</a>

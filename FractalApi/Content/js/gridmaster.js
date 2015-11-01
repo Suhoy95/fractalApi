@@ -11,8 +11,7 @@ FractalGridMaster.factory('gridMaster', ["itemFactory", function(itemFactory) {
             if(!setting.fixedWidth)
                 setting.width = max(setting.minWidth, findMaxWidth(items));
     
-            if(!setting.fixedHeight)
-                setting.height = max(setting.minHeight, findMaxHeight(items));
+            setting.height = max(setting.minHeight, findMaxHeight(items));
   
             items = completeColumns(items, setting.width);
             items = completeRows(items, setting.height);

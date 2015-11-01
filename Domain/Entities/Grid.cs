@@ -21,7 +21,7 @@ namespace Domain.Entities
         public bool FixedWidth { get; set; }
         public Item[][] Items { get; set; }
 
-        public String PageTitile { get; set; }
+        public String PageTitle { get; set; }
         public String PageDescription { get; set; }
         public String PageKeywords { get; set; }
     }
