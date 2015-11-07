@@ -19,13 +19,13 @@ namespace FractalApi.Controllers
         }
 
         [HttpPost]
-        public GridItem Create(GridItem grid)
+        public Item Create(Item grid)
         {
             return db.Create(grid);
         }
 
         [HttpPut]
-        public void Update(GridItem grid)
+        public void Update(Item grid)
         {
             if(db.Exsist(grid.id))
             {

@@ -14,6 +14,8 @@ namespace Domain.Entities
         public int[] sup { get; set; }
         public int[] sub { get; set; }
 
+        public String slug { get; set; }
+
         public String title { get; set; }
         public String text { get; set; }
     }

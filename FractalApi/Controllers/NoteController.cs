@@ -19,13 +19,13 @@ namespace FractalApi.Controllers
         }
 
         [HttpPost]
-        public Note Create(Note note)
+        public Item Create(Item note)
         {
             return db.Create(note);
         }
 
         [HttpPut]
-        public void Update(Note note)
+        public void Update(Item note)
         {
             if (db.Exist(note.id))
             {
@@ -36,7 +36,7 @@ namespace FractalApi.Controllers
         // DELETE api/note/5
         public void Delete(int id)
         {
-            if( db.Exist(id))
+            if(db.Exist(id))
             {
                 db.Delete(id);
             }

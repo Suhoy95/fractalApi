@@ -6,13 +6,6 @@ using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
-    public class GridItem : Item
-    {
-        public String slug;
-        public String Title;
-        public String Text;
-    }
-
     public class Grid
     {
         public String Slug { get; set; }

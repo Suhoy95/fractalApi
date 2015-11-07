@@ -50,7 +50,6 @@
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\Grid.cs" />
-    <Compile Include="Entities\Note.cs" />
     <Compile Include="FakesDb\FakeFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

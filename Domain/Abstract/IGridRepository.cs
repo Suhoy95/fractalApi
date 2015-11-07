@@ -13,8 +13,8 @@ namespace Domain.Abstract
         bool Delete(int id);
         bool Exsist(int id);
 
-        GridItem Create(GridItem grid);
-        void Update(GridItem grid);
+        Item Create(Item grid);
+        void Update(Item grid);
 
         void Update(PartialGrid grid);
     }

@@ -9,8 +9,8 @@ namespace Domain.Abstract
 {
     public interface INoteRepository
     {
-        Note Create(Note note);
-        void Update(Note note);
+        Item Create(Item note);
+        void Update(Item note);
         void Delete(int Id);
 
         bool Exist(int Id);
