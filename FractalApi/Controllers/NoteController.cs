@@ -21,7 +21,8 @@ namespace FractalApi.Controllers
         [HttpPost]
         public Item Create(Item note)
         {
-            return db.Create(note);
+            note.id = 5;
+            return note;
         }
 
         [HttpPut]

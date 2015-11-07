@@ -37,6 +37,22 @@ FractalGridMaster.factory('gridMaster', ["itemFactory", function(itemFactory) {
                 }
             }
             return result;
+        },
+
+        recoveryId: function(item, items)
+        {
+            var aim = item.id;
+            var what = item.id = item.realId;
+            item.realId = undefined;
+            for(var x = 0; x < items.length; x++)
+                for(var y = 0; y < items[x].length; y++)
+                    if(!items[x][y].isEmpty())
+                    {
+                        var it = items[x][y];
+                        replaceId(it.analogy, aim, what);
+                        replaceId(it.sup, aim, what);
+                        replaceId(it.sub, aim, what);                        
+                    } 
         }
     };
 
@@ -89,5 +105,12 @@ FractalGridMaster.factory('gridMaster', ["itemFactory", function(itemFactory) {
     function max(a, b)
     {
         return a > b ? a : b;
+    }
+
+    function replaceId(array, aim, what)
+    {
+        var index = array.indexOf(aim);
+        if(index != -1)
+            array[index] = what;
     }
 }]);

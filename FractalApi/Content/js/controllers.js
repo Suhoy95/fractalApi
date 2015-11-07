@@ -63,7 +63,8 @@ FractalControllers.controller("gridController", ["$scope", "gridMaster", "$windo
     };
 }]);
 
-FractalControllers.controller("itemController", ["$scope", "$window", function($scope, $window){
+FractalControllers.controller("itemController", ["$scope", "$window", "$timeout", "gridMaster", 
+                                                 function($scope, $window, $timeout, gridMaster){
     $scope.createItem = function(item)
     {
         item.create();
@@ -93,6 +94,19 @@ FractalControllers.controller("itemController", ["$scope", "$window", function($
     {
         if(item == $scope.linker.currentItem) 
             $scope.linker.disable();
+
+        if(item.id < 0){
+            $scope.connection.createNote(item);
+            $timeout(recoveryId, 500);
+        }
+
         item.save();
+
+        function recoveryId(){
+            if(item.realId != undefined)
+                gridMaster.recoveryId(item, $scope.items);
+            if(item.state != "error")
+                $timeout(recoveryId, 500);
+        }
     }
 }]);

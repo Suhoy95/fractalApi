@@ -4,7 +4,7 @@ var FractalItemFactory = angular.module("FractalItemFactory", []);
 
 FractalItemFactory.factory('itemFactory', function() {
 
-    var idCounter = 1;
+    var idCounter = -1;
 
     return {
         emptyItem: emptyItem,
@@ -74,7 +74,7 @@ function addItem(data)
 function baseItem(data){
     data = data || {};
     emptyItem(data);
-    data.id = data.id || idCounter++;
+    data.id = data.id || idCounter--;
     data.type = "base";
     data.analogy = data.analogy || [];
     data.sup = data.sup || [];
@@ -187,7 +187,8 @@ function noteItem(data)
 
     function saveNote()
     {
-        this.state = "save";
+        if(this.state != "error")
+            this.state = "save";
         return this
     }
 

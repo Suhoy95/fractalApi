@@ -74,7 +74,12 @@ namespace Domain.FakesDb
 
         public static INoteRepository GetNoteRepository()
         {
-            return null;
+            var fake = A.Fake<INoteRepository>();
+
+            A.CallTo(() => fake.Create(new Item()))
+             .Returns(new Item(){id=5});
+
+            return fake;
         }
     }
 }
