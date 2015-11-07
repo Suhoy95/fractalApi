@@ -122,7 +122,7 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
         }
     }
 
-    $scope.tryComleteNote = function(item)
+    $scope.tryCompleteNote = function(item)
     {
         if(item.action == "saving")
         {
