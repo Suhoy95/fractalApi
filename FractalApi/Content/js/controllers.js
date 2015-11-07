@@ -109,4 +109,10 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
                 $timeout(recoveryId, 500);
         }
     }
+
+    $scope.trySaveNote = function(item)
+    {
+        item.state = "edit";
+        $scope.saveNote(item);
+    }
 }]);

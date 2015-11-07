@@ -162,6 +162,33 @@
   position: relative;
   padding: 0 1em 0 1em;
 }
+/*item.note.error */
+.item.error .cover {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(55, 55, 55, 0.7);
+}
+
+.item.error .cover p {
+  position: relative;
+  top: 50%;
+  margin-top: -2em;
+  text-align: center;
+  font-weight: bold;
+  color: #fff;
+}
+
+.item.error .cover:hover {
+  cursor: pointer;
+  background: rgba(55, 55, 55, 0.65);
+}
+
+.item.error .cover:active {
+  cursor: pointer;
+  background: rgba(55, 55, 55, 0.6);
+}
 
 
 /* item.empty */
