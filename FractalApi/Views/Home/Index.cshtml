@@ -1,8 +1,4 @@
-﻿@model String
-@{
-    Layout = null;
-}
-
+﻿@{ Layout = null;}
 <!DOCTYPE html>
 <html ng-app="FractalApp" ng-controller="dataController">
 <head>
@@ -37,8 +33,9 @@
 
     </div>
 
-    <pre ng-show="true" style="background: #aaa;">{{ {status: status, setting: setting, data: data} | json }}</pre>
-
+    <pre ng-show="true" style="background: #aaa;">{{ {messager: messager, setting: setting, data: data} | json }}</pre>
+    
+    <div class="messager" ng-show="messager.active" ng-bind="messager.message"></div>
     <div class="footer">
         Made by <a href="">&copy;Suhoy</a>
     </div>
@@ -54,6 +51,7 @@
     <script src="/Content/js/connection.js"></script>
     <script src="/Content/js/itemfactory.js"></script>
     <script src="/Content/js/gridmaster.js"></script>
+    <script src="/Content/js/messager.js"></script>
     <script src="/Content/js/linker.js"></script>
     <script src="/Content/js/shower.js"></script>
     <script src="/Content/js/controllers.js"></script>

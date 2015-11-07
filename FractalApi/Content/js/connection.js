@@ -6,7 +6,8 @@ FractalConnection.factory('connection', ["$http", "$location", "itemFactory",
                                          function($http, $location, itemFactory) {
 
     return { 
-      loadGrid: loadGrid
+      loadGrid: loadGrid,
+      // deleteItem: deleteItem
     };
 
 
@@ -15,8 +16,10 @@ function loadGrid()
   var scope = this["scope"];
 
   var url = "/api" + ($location.path() == "" ? "/grid/main" : $location.path());
+  
+  scope.messager.show("load " + url)
   $http.get(url).success(function(data) {
-      scope.status = "ok";
+      scope.messager.tmpShow("Loaded", 1000);
       scope.data = data;
 
       for(var x = 0; x < data.Items.length; x++)
@@ -37,8 +40,18 @@ function loadGrid()
       };
       scope.completeGrid();
   }).error(function(){
-      scope.status = "error";
+      scope.messager.show("Faild to load " + url);
   });
 }
 
+function deleteItem(item)
+{
+  var url = /api/ + item.type +  "/" + item.id
+  $http.delete(url).success(function(){
+    item.state = "success";
+  }).error(function(){
+    item.state = "error";
+  });
+
+}
 }]);

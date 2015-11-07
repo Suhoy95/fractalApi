@@ -2,13 +2,15 @@
 
 /* Controllers */
 
-var FractalControllers = angular.module('FractalControllers', []);
+var FractalControllers = angular.module('FractalControllers', ["FractalMessager"]);
 
-FractalControllers.controller("dataController", ["$scope", "connection", "gridMaster", "shower", "linker",
-                                                 function($scope, connection, gridMaster, shower, linker){
+FractalControllers.controller("dataController", 
+                            ["$scope", "connection", "gridMaster", "shower", "linker", "messager",
+                            function($scope, connection, gridMaster, shower, linker, messager){
 
     connection.scope = $scope;
     $scope.items = [];
+    $scope.messager = messager;
     $scope.connection = connection;
     $scope.linker = linker;
     $scope.shower = shower;
