@@ -10,9 +10,22 @@ namespace FractalApi
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
+                name: "ApiWithId",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: null,
+                constraints: new { id = @"\d+"}
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "ApiWithSlug",
                 routeTemplate: "api/{controller}/{slug}",
-                defaults: new { slug = RouteParameter.Optional }
+                defaults: new { slug = RouteParameter.Optional },
+                constraints: new { slug=@"[a-zA-Z]+"}
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "ApiREST",
+                routeTemplate: "api/{controller}/"
             );
         }
     }

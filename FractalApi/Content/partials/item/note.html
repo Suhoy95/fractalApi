@@ -110,9 +110,14 @@
             {{item.text}}
         </div>
         <div class="cover">
-            <p ng-click="trySaveNote(item)">
+            <p ng-click="tryCompleteNote(item)">
                 Произошла ошибка. <br /> 
-                Нажмите, что бы попытаться сохранить заметку снова. 
+                Нажмите, что бы попытаться 
+                <span ng-switch="item.action">
+                    <span ng-switch-when="saving">сохранить</span>
+                    <span ng-switch-when="deleting">удалить</span> 
+                </span>
+                заметку снова. 
             </p>
         </div>
     </div>

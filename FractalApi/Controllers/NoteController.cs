@@ -34,7 +34,7 @@ namespace FractalApi.Controllers
             }
         }
 
-        // DELETE api/note/5
+        [HttpDelete]
         public void Delete(int id)
         {
             if(db.Exist(id))

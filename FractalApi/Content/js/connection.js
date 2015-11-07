@@ -7,9 +7,10 @@ FractalConnection.factory('connection', ["$http", "$location", "itemFactory",
 
     return { 
       loadGrid: loadGrid,
-      // deleteItem: deleteItem
 
-      createNote: createNote
+      createNote: createNote,
+      updateNote: updateNote,
+      deleteNote: deleteNote
     };
 
 
@@ -61,15 +62,33 @@ function createNote(item)
        });
 }
 
-
-function deleteItem(item)
+function updateNote(item)
 {
-  var url = /api/ + item.type +  "/" + item.id
-  $http.delete(url).success(function(){
-    item.state = "success";
-  }).error(function(){
-    item.state = "error";
-  });
+  var scope = this["scope"];
+  var url = "/api/note/"
+  scope.messager.show("Update Note...")
+  $http.put(url, item)
+       .success(function(data){
+          scope.messager.tmpShow("Success", 3000);
+       }).error(function(){
+          item.state = "error";
+          scope.messager.show("Fail in update note");
+       });
+}
+
+function deleteNote(item)
+{
+  var scope = this["scope"];
+  var url = "/api/note/" + item.id;
+  scope.messager.show("Delete Note...")
+  $http.delete(url)
+      .success(function(){
+        scope.messager.tmpShow("Success", 3000);
+        item.state = "success";
+      }).error(function(){
+        item.state = "error";
+        scope.messager.show("Fail in delete note");
+      });
 
 }
 }]);

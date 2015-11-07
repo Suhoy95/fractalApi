@@ -79,6 +79,7 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
 
     $scope.deleteNote = function(item)
     {
+        item.action = "deleting";
         if(!(item.title === "" && item.text === "") &&
             !$window.confirm("Вы уверены, что хотите заметку?"))
             return;
@@ -86,19 +87,30 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
         if(item == $scope.linker.currentItem) 
             $scope.linker.disable();
 
-        item.delete();
-        $scope.completeGrid();
+        $scope.connection.deleteNote(item);
+        $timeout(deleteInFront, 500);
+
+        function deleteInFront(){
+            if(item.state != "success")
+                $timeout(deleteInFront, 500);
+            else if(item.state == "success"){
+                item.delete();
+                $scope.completeGrid();
+            }
+        }
     }
 
     $scope.saveNote = function(item)
     {
+        item.action = "saving";
         if(item == $scope.linker.currentItem) 
             $scope.linker.disable();
 
         if(item.id < 0){
             $scope.connection.createNote(item);
             $timeout(recoveryId, 500);
-        }
+        } else
+            $scope.connection.updateNote(item);
 
         item.save();
 
@@ -110,9 +122,13 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
         }
     }
 
-    $scope.trySaveNote = function(item)
+    $scope.tryComleteNote = function(item)
     {
-        item.state = "edit";
-        $scope.saveNote(item);
+        if(item.action == "saving")
+        {
+            item.state = "edit";
+            $scope.saveNote(item);
+        } else if( item.action == "deleting")
+            $scope.deleteNote(item);
     }
 }]);
