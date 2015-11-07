@@ -13,14 +13,36 @@ namespace Domain.FakesDb
     {
         public static IGridRepository GetGridRepository()
         {
-            var item = new Item(){
+            var note = new Item(){
                 id = 1,
                 type = "note",
-                analogy = new int[1]{1},
+                analogy = new int[]{1,2,3},
                 sub = new int[1] { 1 },
                 sup = new int[1] { 1 },
                 title = "Fractal",
                 text = "Добро пожаловать!"
+            };
+
+            var gridItem = new Item(){
+                id = 2,
+                type = "gridItem",
+                analogy = new int[] {1},
+                sub = new int[]{},
+                sup = new int[]{},
+                slug = "subgrid",
+                title = "Нужно больше листов",
+                text = "Да, это фейк, но он уже должен быть!"
+            };
+
+            var article = new Item(){
+                id = 3,
+                type = "article",
+                analogy = new int[] {1},
+                sub = new int[]{},
+                sup = new int[]{},
+                slug = "test",
+                title = "И статьи тоже нужны",
+                text = "Больше, больше"
             };
 
             var fake = A.Fake<IGridRepository>();
@@ -32,10 +54,10 @@ namespace Domain.FakesDb
                 FixedWidth = true,
                 Items = new Item[4][]
                 {
-                    new Item[2]{item, item},
-                    new Item[1]{item},
-                    new Item[2]{item, item},
-                    new Item[1]{item}
+                    new Item[]{note, note, note},
+                    new Item[]{gridItem},
+                    new Item[]{article, article, article},
+                    new Item[]{note, article, gridItem}
                 },
 
                 PageTitle = "Главная - Fractal",

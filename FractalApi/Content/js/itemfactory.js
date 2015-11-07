@@ -18,6 +18,10 @@ function recovery(item){
         return emptyItem(item);
     if(item.type == "note")
         return noteItem(item);
+    if(item.type == "article")
+        return articleItem(item);
+    if(item.type == "gridItem")
+        return gridItem(item);
     throw new Error("Bad type of items");
 }
 
@@ -37,6 +41,8 @@ function addItem(data)
     data.type = "add";
     data.delete = deleteItem;
     data.createNote = createNote;
+    data.createArticle = createArticle;
+    data.createGrid = createGrid;
 
     return data;
 
@@ -49,6 +55,18 @@ function addItem(data)
     function createNote()
     {
         noteItem(this);
+        return this;
+    }
+
+    function createArticle()
+    {
+        articleItem(this);
+        return this;
+    }
+
+    function createGrid()
+    {
+        gridItem(this);
         return this;
     }
 }
@@ -175,13 +193,93 @@ function noteItem(data)
 
     function deleteNote()
     {
-        data.state = undefined;
-        data.title = undefined;
-        data.text = undefined;
-        data.deleteItem();
+        this.state = undefined;
+        this.title = undefined;
+        this.text = undefined;
+        this.deleteItem();
         emptyItem(this);
         return this;
     }
 } 
+
+function articleItem(data)
+{
+    data = data || {};
+    baseItem(data);
+
+    data.type = "article";
+    data.state = "save";
+    data.slug = data.slug || "";
+    data.title = data.title || "";
+    data.text = data.text || "";
+    data.edit = editArticle;
+    data.save = saveArticle;
+    data.delete = deleteArticle;
+
+    return data;
+
+    function editArticle()
+    {
+        this.state = "edit";
+        return this;
+    }
+
+    function saveArticle()
+    {
+        this.state = "save";
+        return this
+    }
+
+    function deleteArticle()
+    {
+        this.state = undefined;
+        this.slug = undefined;
+        this.title = undefined;
+        this.text = undefined;
+        this.deleteItem();
+        emptyItem(this);
+        return this;
+    }
+}
+
+function gridItem(data)
+{
+    data = data || {};
+    baseItem(data);
+
+    data.type = "gridItem";
+    data.state = "save";
+    data.slug = data.slug || "";
+    data.title = data.title || "";
+    data.text = data.text || "";
+    data.edit = editGrid;
+    data.save = saveGrid;
+    data.delete = deleteGrid;
+
+    return data;
+
+    function editGrid()
+    {
+        this.state = "edit";
+        return this;
+    }
+
+    function saveGrid()
+    {
+        this.state = "save";
+        return this
+    }
+
+    function deleteGrid()
+    {
+        this.state = undefined;
+        this.slug = undefined;
+        this.title = undefined;
+        this.text = undefined;
+        this.deleteItem();
+        emptyItem(this);
+        return this;
+    }
+}
 
 });
