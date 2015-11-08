@@ -1,11 +1,11 @@
 <div ng-switch="item.state">
 
-    <div class="item note" ng-switch-when="save">
+    <div class="item grid" ng-switch-when="save">
                     
         <h2>{{item.title}}</h2>
         
         <div class="controll clearfix">
-            <button class="delete-item" title="Удалить" ng-click="deleteNote(item)"></button>
+            <button class="delete-item" title="Удалить" ng-click="deleteGrid(item)"></button>
             <button class="edit-item" title="Редактировать" ng-click="item.edit()"></button>
             <span class="button sort-item" title="Переместить" ng-show="shower.state() == 'grid'"></span>
             <button class="analogy" title="Показать аналогии" 
@@ -59,7 +59,7 @@
     </div>
 
 
-    <div class="item note edit" ng-switch-when="edit"> 
+    <div class="item grid edit" ng-switch-when="edit"> 
         <h2><input type="text" class="title" ng-model="item.title" ></h2>
         <div class="controll clearfix">
             <button class="delete-item" title="Удалить" ng-click="deleteNote(item)"></button>
@@ -84,7 +84,8 @@
             </button>                   
         </div>
         <textarea class="description" ng-model="item.text"></textarea>
-        <button class="save-note" ng-click="saveNote(item)">Сохранить</button>
+        <label>Ссылка: #/grid/<input type="text" class="slug" ng-model="item.slug" /></label>
+        <button class="save-note" ng-click="saveGridItem(item)">Сохранить</button>
     </div>
 
 </div>

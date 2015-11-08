@@ -2,15 +2,19 @@
 
 var FractalConnection = angular.module("FractalConnection", ["FractalItemFactory"]);
 
-FractalConnection.factory('connection', ["$http", "$location", "itemFactory", 
-                                         function($http, $location, itemFactory) {
+FractalConnection.factory('connection', ["$http", "$location", "$window" ,"itemFactory", 
+                                         function($http, $location, $window, itemFactory) {
 
     return { 
       loadGrid: loadGrid,
 
       createNote: createNote,
       updateNote: updateNote,
-      deleteNote: deleteNote
+      deleteNote: deleteNote,
+
+      createGridItem: createGridItem,
+      updateGridItem: updateGridItem,
+      deleteGrid: deleteGrid
     };
 
 
@@ -49,7 +53,7 @@ function loadGrid(slug)
       };
       scope.completeGrid();
   }).error(function(){
-      scope.messager.show("Faild to load " + url);
+      scope.messager.show("Fail in load " + url);
   });
 }
 
@@ -93,8 +97,62 @@ function deleteNote(item)
         item.state = "success";
       }).error(function(){
         item.state = "error";
-        scope.messager.show("Fail in delete note");
+        scope.messager.show("Fail in delete grid");
       });
-
 }
+
+function createGridItem(item)
+{
+  var scope = this["scope"];
+  var url = "/api/griditem/"
+  scope.messager.show("Save Grid...")
+  $http.post(url, item)
+       .success(function(data){
+          scope.messager.tmpShow("Success", 3000);
+          item.realId = data.id;
+       }).error(function(data){
+          if(data == "BadSlug"){
+            $window.alert("Не удается сохранить лист по ссылке #/grid/" + item.slug);
+            item.edit();
+            return;
+          }
+          item.state = "error";
+          scope.messager.show("Fail in save grid");
+       });
+}
+
+function updateGridItem(item)
+{
+  var scope = this["scope"];
+  var url = "/api/griditem/"
+  scope.messager.show("Update Grid...")
+  $http.put(url, item)
+       .success(function(data){
+          scope.messager.tmpShow("Success", 3000);
+       }).error(function(data){
+          if(data == "BadSlug"){
+            $window.alert("Не удается сохранить лист по ссылке #/grid/" + item.slug);
+            item.edit();
+            return;
+          }
+          item.state = "error";
+          scope.messager.show("Fail in update grid");
+       });
+}
+
+function deleteGrid(item)
+{
+  var scope = this["scope"];
+  var url = "/api/grid/" + item.id;
+  scope.messager.show("Delete Grid...")
+  $http.delete(url)
+      .success(function(){
+        scope.messager.tmpShow("Success", 3000);
+        item.state = "success";
+      }).error(function(){
+        item.state = "error";
+        scope.messager.show("Fail in delete grid");
+      });
+}
+
 }]);

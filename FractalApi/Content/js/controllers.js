@@ -85,7 +85,7 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
     {
         item.action = "deleting";
         if(!(item.title === "" && item.text === "") &&
-            !$window.confirm("Вы уверены, что хотите заметку?"))
+            !$window.confirm("Вы уверены, что хотите удалить заметку?"))
             return;
 
         if(item == $scope.linker.currentItem) 
@@ -134,6 +134,61 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
             $scope.saveNote(item);
         } else if( item.action == "deleting")
             $scope.deleteNote(item);
+    }
+
+    $scope.deleteGrid = function(item)
+    {
+        item.action = "deleting";
+        if(!(item.title === "" && item.text === "") &&
+            !$window.confirm("Вы уверены, что хотите удалить лист?"))
+            return;
+
+        if(item == $scope.linker.currentItem) 
+            $scope.linker.disable();
+
+        $scope.connection.deleteGrid(item);
+        $timeout(deleteInFront, 500);
+
+        function deleteInFront(){
+            if(item.state != "success")
+                $timeout(deleteInFront, 500);
+            else if(item.state == "success"){
+                item.delete();
+                $scope.completeGrid();
+            }
+        }
+    }
+
+    $scope.saveGridItem = function(item)
+    {
+        item.action = "saving";
+        if(item == $scope.linker.currentItem) 
+            $scope.linker.disable();
+
+        if(item.id < 0){
+            $scope.connection.createGridItem(item);
+            $timeout(recoveryId, 500);
+        } else
+            $scope.connection.updateGridItem(item);
+
+        item.save();
+
+        function recoveryId(){
+            if(item.realId != undefined)
+                gridMaster.recoveryId(item, $scope.items);
+            if(item.state != "error")
+                $timeout(recoveryId, 500);
+        }
+    }
+
+    $scope.tryCompleteGrid = function(item)
+    {
+        if(item.action == "saving")
+        {
+            item.state = "edit";
+            $scope.saveGrid(item);
+        } else if(item.action == "deleting")
+            $scope.deleteGird(item);
     }
 
 

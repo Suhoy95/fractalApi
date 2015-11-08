@@ -21,7 +21,11 @@ namespace FractalApi.Controllers
         [HttpPost]
         public Item Create(Item grid)
         {
-            return db.Create(grid);
+            if (grid.slug == "sad")
+                BadSlug();
+
+            grid.id = 10;
+            return grid;// db.Create(grid);
         }
 
         [HttpPut]
@@ -31,6 +35,15 @@ namespace FractalApi.Controllers
             {
                 db.Update(grid);
             }
+        }
+
+        private void BadSlug()
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.BadRequest)
+            {
+                Content = new StringContent("BadSlug")
+            };
+            throw new HttpResponseException(response);
         }
     }
 }
