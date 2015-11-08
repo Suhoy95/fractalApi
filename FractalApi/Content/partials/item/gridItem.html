@@ -28,6 +28,9 @@
         <div class="description">
             {{item.text}}
         </div>
+        <div class="readall">
+            <a ng-href="/#/grid/{{item.slug}}" ng-click="changeGrid()">Открыть</a>
+        </div>
 
         <div ng-show="linker.isSelecting()"  ng-switch="linker.currentItem.whatBinding(item)">
 

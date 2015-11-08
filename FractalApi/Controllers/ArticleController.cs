@@ -9,6 +9,10 @@ using Domain.Entities;
 
 namespace FractalApi.Controllers
 {
+    /*
+        Контроллер для статей, на будущее.
+    */
+
     public class ArticleController : ApiController
     {
         private IArticleRepository db;
@@ -18,13 +22,13 @@ namespace FractalApi.Controllers
             this.db = db;
         }
         
-        public Article Get(string slug)
+        private Article Get(string slug)
         {
             return db.Get(slug);
         }
 
         [HttpPost]
-        public Article Create(Article article)
+        private Article Create(Article article)
         {
             if(db.Count(article.Slug) == 0)
             {
@@ -34,7 +38,7 @@ namespace FractalApi.Controllers
         }
 
         [HttpPut]
-        public void Update(Article article)
+        private void Update(Article article)
         {
             if(db.Exist(article.id) && db.Count(article.Slug) <= 1)
             {
@@ -42,7 +46,7 @@ namespace FractalApi.Controllers
             }
         }
 
-        public void Delete(int id)
+        private void Delete(int id)
         {
             if(db.Exist(id))
             {

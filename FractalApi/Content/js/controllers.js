@@ -131,4 +131,10 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
         } else if( item.action == "deleting")
             $scope.deleteNote(item);
     }
+
+
+    $scope.changeGrid = function()
+    {
+        $scope.connection.loadGrid();
+    }
 }]);
