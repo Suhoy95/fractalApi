@@ -21,16 +21,12 @@ function show(message)
 
 function tmpShow(message, timeout)
 {
-    if(messager.timerId){
-        messager.timerId.clear();
-        messager.timerId = null;
-    }
+    $timeout.cancel(messager.timerId);
 
     messager.message = message;
 
     messager.timerId = $timeout(function(){
         messager.active = false;
-        messager.timerId = null;
     }, timeout);
 }
 

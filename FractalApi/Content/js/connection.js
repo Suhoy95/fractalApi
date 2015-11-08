@@ -14,12 +14,18 @@ FractalConnection.factory('connection', ["$http", "$location", "itemFactory",
     };
 
 
-function loadGrid()
+function loadGrid(slug)
 {
   var scope = this["scope"];
 
-  var url = "/api" + ($location.path() == "" ? "/grid/main" : $location.path());
+  var url = "/api";
+
+  if(slug != undefined)
+    url += "/grid/" + slug;
+  else
+    url += ($location.path() == "" ? "/grid/main" : $location.path());
   
+
   scope.messager.show("load " + url)
   $http.get(url).success(function(data) {
       scope.messager.tmpShow("Loaded " + url, 3000);

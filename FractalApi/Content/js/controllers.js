@@ -39,6 +39,10 @@ FractalControllers.controller("dataController",
         $scope.items = gridMaster.completeGrid($scope.items, $scope.setting);
     }
 
+    $scope.$on('$locationChangeStart', function(event) {
+        $scope.connection.loadGrid();
+    });
+
     $scope.connection.loadGrid();
 }]);
 
@@ -133,8 +137,8 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
     }
 
 
-    $scope.changeGrid = function()
+    $scope.changeGrid = function(slug)
     {
-        $scope.connection.loadGrid();
+        $scope.connection.loadGrid(slug);
     }
 }]);
