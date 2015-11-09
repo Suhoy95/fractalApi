@@ -21,7 +21,6 @@ FractalConnection.factory('connection', ["$http", "$location", "$window" ,"itemF
 function home()
 {
   $location.path("/");
-  // this.loadGrid();
 }
 
 function loadGrid(slug)

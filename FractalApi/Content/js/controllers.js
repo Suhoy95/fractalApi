@@ -47,6 +47,8 @@ FractalControllers.controller("dataController",
 
 
     $scope.$on('$locationChangeStart', function(event) {
+        $scope.shower.clearBinding();
+        $scope.linker.disable();
         $scope.connection.loadGrid();
     });
 
@@ -105,7 +107,7 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
             if(item.state != "success")
                 $timeout(deleteInFront, 500);
             else if(item.state == "success"){
-                item.delete();
+                gridMaster.removeItem($scope.items, item);
                 $scope.completeGrid();
             }
         }
@@ -160,7 +162,7 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
             if(item.state != "success")
                 $timeout(deleteInFront, 500);
             else if(item.state == "success"){
-                item.delete();
+                gridMaster.removeItem($scope.items, item);
                 $scope.completeGrid();
             }
         }
