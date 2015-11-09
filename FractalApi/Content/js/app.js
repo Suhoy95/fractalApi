@@ -9,3 +9,8 @@ var FractalApp = angular.module('FractalApp', ['ui.sortable',
                                                'FractalShower',
                                                'FractalControllers', 
                                                'FractalDirectives']);
+
+FractalApp.config(["$locationProvider", function($locationProvider) {
+        $locationProvider.html5Mode({ enabled: true,
+                                      requireBase: false});
+}])

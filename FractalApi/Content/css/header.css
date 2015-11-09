@@ -10,10 +10,38 @@
   z-index: 100;
 }
 
+.header .home {
+  display: block;
+  position: relative;
+  float: left;
+  top: 0.1em;
+  left: 1.5em;
+  width: 2em;
+  height: 2em;
+  padding: 0em;
+  font-size: 1em;
+  background: url('img/home.png') 0.1em 0.1em no-repeat;
+  background-size: 1.8em;
+  border: none;
+}
+
+.header .home:active{
+  background: url('img/home-active.png') 0.1em 0.1em no-repeat;
+  background-size: 1.8em;
+}
+
+.header .home:hover {
+  background-color:rgba(250,250,250, 0.8);
+}
+
+.header .home:active {
+  background-color:rgba(51,51,51, 0.8);
+}
+
 .header h1 {
   position:relative;
   float:left;
-  left: 2em;
+  left: 1em;
   color: rgba(0,0,0,0.67);
 }
 
@@ -52,6 +80,7 @@
 }
 
 .header .customization-bar {
+  display: none;
   position: absolute;
   top: 2.9em; right: 0.5em;
   width: 18em;
@@ -72,11 +101,4 @@
 .header .customization-bar label {
   display: block;
   padding: 0.1em 0;
-}
-
-.header .setting_handler {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
 }

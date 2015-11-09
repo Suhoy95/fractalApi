@@ -5,9 +5,12 @@
         <h2>{{item.title}}</h2>
         
         <div class="controll clearfix">
-            <button class="delete-item" title="Удалить" ng-click="deleteNote(item)"></button>
-            <button class="edit-item" title="Редактировать" ng-click="item.edit()"></button>
-            <span class="button sort-item" title="Переместить" ng-show="shower.state() == 'grid'"></span>
+            <button class="delete-item" title="Удалить" ng-click="deleteNote(item)"
+                    ng-show="editing_mode"></button>
+            <button class="edit-item" title="Редактировать" ng-click="item.edit()"
+                    ng-show="editing_mode"></button>
+            <span class="button sort-item" title="Переместить" 
+                  ng-show="shower.state() == 'grid' && editing_mode"></span>
             <button class="analogy" title="Показать аналогии" 
                     ng-click="setBinding(item, 'analogy')"
                     ng-disabled="item.analogy.length == 0">

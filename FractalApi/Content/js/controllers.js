@@ -14,6 +14,7 @@ FractalControllers.controller("dataController",
     $scope.connection = connection;
     $scope.linker = linker;
     $scope.shower = shower;
+    $scope.editing = false;
 
     $scope.getBindingItems = function()
     {
@@ -38,6 +39,12 @@ FractalControllers.controller("dataController",
     {
         $scope.items = gridMaster.completeGrid($scope.items, $scope.setting);
     }
+
+    $scope.goHome = function()
+    {
+        connection.home();
+    }
+
 
     $scope.$on('$locationChangeStart', function(event) {
         $scope.connection.loadGrid();
@@ -190,7 +197,6 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
         } else if(item.action == "deleting")
             $scope.deleteGird(item);
     }
-
 
     $scope.changeGrid = function(slug)
     {

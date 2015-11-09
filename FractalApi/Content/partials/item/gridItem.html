@@ -5,9 +5,13 @@
         <h2>{{item.title}}</h2>
         
         <div class="controll clearfix">
-            <button class="delete-item" title="Удалить" ng-click="deleteGrid(item)"></button>
-            <button class="edit-item" title="Редактировать" ng-click="item.edit()"></button>
-            <span class="button sort-item" title="Переместить" ng-show="shower.state() == 'grid'"></span>
+            <button class="delete-item" title="Удалить" ng-click="deleteGrid(item)"
+                    ng-show="editing_mode"></button>
+            <button class="edit-item" title="Редактировать" ng-click="item.edit()"
+                    ng-show="editing_mode"></button>
+            <span class="button sort-item" title="Переместить" 
+                  ng-show="shower.state() == 'grid' && editing_mode">
+            </span>
             <button class="analogy" title="Показать аналогии" 
                     ng-click="setBinding(item, 'analogy')"
                     ng-disabled="item.analogy.length == 0">
@@ -29,7 +33,7 @@
             {{item.text}}
         </div>
         <div class="readall">
-            <a ng-href="/#/grid/{{item.slug}}" ng-click="changeGrid(item.slug)">Открыть</a>
+            <a ng-href="/grid/{{item.slug}}" ng-click="changeGrid(item.slug)">Открыть</a>
         </div>
 
         <div ng-show="linker.isSelecting()"  ng-switch="linker.currentItem.whatBinding(item)">

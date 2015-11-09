@@ -6,6 +6,7 @@ FractalConnection.factory('connection', ["$http", "$location", "$window" ,"itemF
                                          function($http, $location, $window, itemFactory) {
 
     return { 
+      home: home,
       loadGrid: loadGrid,
 
       createNote: createNote,
@@ -17,6 +18,11 @@ FractalConnection.factory('connection', ["$http", "$location", "$window" ,"itemF
       deleteGrid: deleteGrid
     };
 
+function home()
+{
+  $location.path("/");
+  // this.loadGrid();
+}
 
 function loadGrid(slug)
 {
@@ -27,7 +33,7 @@ function loadGrid(slug)
   if(slug != undefined)
     url += "/grid/" + slug;
   else
-    url += ($location.path() == "" ? "/grid/main" : $location.path());
+    url += ($location.path() == "/" ? "/grid/main" : $location.path());
   
 
   scope.messager.show("load " + url)
@@ -45,6 +51,7 @@ function loadGrid(slug)
       scope.setting = {
             title: data.Title,
             minWidth: data.Width,
+            minHeight: 1,
             width: data.Width,
             fixedWidth: data.FixedWidth,
             pageTitle: data.PageTitle,

@@ -92,14 +92,14 @@ FractalGridMaster.factory('gridMaster', ["itemFactory", function(itemFactory) {
 
     function findMaxHeight(items)
     {
-        var max = 0;
+        var max = -1;
         for(var x = 0; x < items.length; x++)
             for(var y = 0; y < items[x].length; y++)
             {
                 if(!items[x][y].isEmpty() && y > max)
                     max = y;
             }
-        return max + 2;
+        return max == -1 ? 0 : max + 2;
     }
 
     function max(a, b)
