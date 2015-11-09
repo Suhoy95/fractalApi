@@ -15,8 +15,8 @@ FractalShower.factory('messager', ["$timeout", function($timeout) {
 
 function show(message)
 {
-    this.message = message;
-    this.active = true;
+    messager.message = message;
+    messager.active = true;
 }
 
 function tmpShow(message, timeout)

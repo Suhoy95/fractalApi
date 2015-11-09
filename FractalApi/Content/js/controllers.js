@@ -58,7 +58,9 @@ FractalControllers.controller("dataController",
 FractalControllers.controller("gridController", ["$scope", "gridMaster", "$window", "$timeout", 
                                                  function($scope, gridMaster, $window, $timeout){
 
+    var updateCoordTimer = null;
     $scope.completeGrid = function(){
+        $timeout.cancel(updateCoordTimer);
         var x = $window.scrollX,
             y = $window.scrollY;
         $scope.items = gridMaster.completeGrid($scope.items, $scope.setting);
@@ -66,10 +68,17 @@ FractalControllers.controller("gridController", ["$scope", "gridMaster", "$windo
         $timeout(function() {
             $window.scrollTo(x, y);
         }, 0);
+
+        updateCoordTimer = $timeout(function(){
+            var coord = gridMaster.getItemsCoord($scope.items);
+            $scope.connection.updateCoord(coord);
+        }, 5000);
+
     };
 
     $scope.sortableOptions = {
         tolerance: "pointer",
+        containment:".workplace",
         handle: "div.controll .sort-item",
         connectWith: ".column",
         stop: $scope.completeGrid

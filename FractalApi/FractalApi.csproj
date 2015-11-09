@@ -125,6 +125,7 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
+    <Compile Include="Controllers\CoordController.cs" />
     <Compile Include="Controllers\GridController.cs" />
     <Compile Include="Controllers\GridItemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

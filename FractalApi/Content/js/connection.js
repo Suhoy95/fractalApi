@@ -15,6 +15,7 @@ FractalConnection.factory('connection', ["$http", "$location", "$window" ,"itemF
 
       createGridItem: createGridItem,
       updateGridItem: updateGridItem,
+      updateCoord: updateCoord,
       deleteGrid: deleteGrid
     };
 
@@ -143,6 +144,19 @@ function updateGridItem(item)
           }
           item.state = "error";
           scope.messager.show("Fail in update grid");
+       });
+}
+
+function updateCoord(coord)
+{
+  var scope = this["scope"];
+  var url = "/api/coord/"
+  scope.messager.show("Update items moving...")
+  $http.put(url, coord)
+       .success(function(data){
+          scope.messager.tmpShow("Success", 3000);
+       }).error(function(data){
+          scope.messager.show("Fail in update items coord");
        });
 }
 
