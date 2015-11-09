@@ -5,8 +5,8 @@
 var FractalControllers = angular.module('FractalControllers', ["FractalMessager"]);
 
 FractalControllers.controller("dataController", 
-                            ["$scope", "connection", "gridMaster", "shower", "linker", "messager",
-                            function($scope, connection, gridMaster, shower, linker, messager){
+                            ["$scope", "$window", "connection", "gridMaster", "shower", "linker", "messager",
+                            function($scope, $window, connection, gridMaster, shower, linker, messager){
 
     connection.scope = $scope;
     $scope.items = [];
@@ -45,8 +45,13 @@ FractalControllers.controller("dataController",
         connection.home();
     }
 
-
     $scope.$on('$locationChangeStart', function(event) {
+        if(!gridMaster.isAllSave($scope.items) && 
+           !$window.confirm("Не все изменения были сохранены.  Вы уверены, что хотите покинуть текущий лист?"))
+        {
+            event.preventDefault();
+            return;
+        }
         $scope.shower.clearBinding();
         $scope.linker.disable();
         $scope.connection.loadGrid();
@@ -207,10 +212,5 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
             $scope.saveGrid(item);
         } else if(item.action == "deleting")
             $scope.deleteGird(item);
-    }
-
-    $scope.changeGrid = function(slug)
-    {
-        $scope.connection.loadGrid(slug);
     }
 }]);

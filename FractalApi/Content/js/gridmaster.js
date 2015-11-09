@@ -56,7 +56,8 @@ FractalGridMaster.factory('gridMaster', ["itemFactory", function(itemFactory) {
         },
 
         removeItem: removeItem,
-        getItemsCoord: getItemsCoord
+        getItemsCoord: getItemsCoord,
+        isAllSave: isAllSave
     };
 
     function completeColumns(items, amountOfColumn)
@@ -141,5 +142,15 @@ FractalGridMaster.factory('gridMaster', ["itemFactory", function(itemFactory) {
                     result.push([items[x][y].id, x, y]);
                 }
         return result;
+    }
+
+    function isAllSave(items)
+    {
+        for(var x = 0; x < items.length; x++)
+            for(var y = 0; y < items[x].length; y++)
+                if(!items[x][y].isEmpty() && items[x][y].state == "edit")
+                    return false;
+
+        return true;
     }
 }]);

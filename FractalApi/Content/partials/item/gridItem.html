@@ -33,7 +33,7 @@
             {{item.text}}
         </div>
         <div class="readall">
-            <a ng-href="/grid/{{item.slug}}" ng-click="changeGrid(item.slug)">Открыть</a>
+            <a ng-href="/grid/{{item.slug}}">Открыть</a>
         </div>
 
         <div ng-show="linker.isSelecting()"  ng-switch="linker.currentItem.whatBinding(item)">
