@@ -22,7 +22,7 @@ function recovery(item){
         return articleItem(item);
     if(item.type == "gridItem")
         return gridItem(item);
-    throw new Error("Bad type of items");
+    return emptyItem(item);
 }
 
 function emptyItem(data){

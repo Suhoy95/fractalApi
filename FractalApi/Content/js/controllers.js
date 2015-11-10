@@ -57,7 +57,7 @@ FractalControllers.controller("dataController",
         $scope.connection.loadGrid();
     });
 
-    $scope.connection.loadGrid();
+    // $scope.connection.loadGrid();
 }]);
 
 FractalControllers.controller("gridController", ["$scope", "gridMaster", "$window", "$timeout", 

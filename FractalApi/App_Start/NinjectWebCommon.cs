@@ -14,6 +14,7 @@ namespace FractalApi.App_Start
     using Domain.Abstract;
     using Domain.Entities;
     using Domain.FakesDb;
+    using Domain.DbProviders;
 
     public static class NinjectWebCommon 
     {
@@ -59,7 +60,7 @@ namespace FractalApi.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IGridRepository>().ToConstant(FakeFactory.GetGridRepository());
+            kernel.Bind<IGridRepository>().To<GridRepository>();
             kernel.Bind<INoteRepository>().ToConstant(FakeFactory.GetNoteRepository());
             kernel.Bind<IArticleRepository>().ToConstant(FakeFactory.GetArticleRepository());
         }        

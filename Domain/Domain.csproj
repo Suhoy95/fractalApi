@@ -34,6 +34,7 @@
       <HintPath>..\packages\FakeItEasy.1.25.3\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
@@ -47,6 +48,8 @@
     <Compile Include="Abstract\IArticleRepository.cs" />
     <Compile Include="Abstract\IGridRepository.cs" />
     <Compile Include="Abstract\INoteRepository.cs" />
+    <Compile Include="DbProviders\ConnectProvider.cs" />
+    <Compile Include="DbProviders\GridRepository.cs" />
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\Grid.cs" />
@@ -56,6 +59,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -80,7 +80,6 @@
 }
 
 .header .customization-bar {
-  display: none;
   position: absolute;
   top: 2.9em; right: 0.5em;
   width: 18em;
@@ -101,4 +100,11 @@
 .header .customization-bar label {
   display: block;
   padding: 0.1em 0;
+}
+
+.header .setting_handler {
+  display: block;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
