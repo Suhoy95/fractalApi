@@ -42,7 +42,10 @@ namespace Domain.DbProviders
 
         public void Delete(int Id)
         {
-            throw new NotImplementedException();
+            ClearCommand();
+            cmd.CommandText = "EXEC ClearRel @id; EXEC DeleteNote @id;";
+            CreateIntParameter(Id, "id");
+            cmd.ExecuteNonQuery();
         }
 
         public bool Exist(int Id)
