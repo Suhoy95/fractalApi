@@ -142,10 +142,13 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
         item.save();
 
         function recoveryId(){
-            if(item.realId != undefined)
+            if(item.realId != undefined){
                 gridMaster.recoveryId(item, $scope.items);
+                $scope.completeGrid();
+            }
             if(item.state != "error")
                 $timeout(recoveryId, 500);
+            
         }
     }
 
@@ -197,10 +200,13 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
         item.save();
 
         function recoveryId(){
-            if(item.realId != undefined)
+            if(item.realId != undefined){
                 gridMaster.recoveryId(item, $scope.items);
+                $scope.completeGrid();
+            }
             if(item.state != "error")
                 $timeout(recoveryId, 500);
+            
         }
     }
 

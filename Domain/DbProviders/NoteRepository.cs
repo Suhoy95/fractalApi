@@ -30,7 +30,14 @@ namespace Domain.DbProviders
 
         public void Update(Item note)
         {
-            throw new NotImplementedException();
+            UpdateItem(note);
+            ClearCommand();
+
+            cmd.CommandText = "EXEC UpdateNote @id, @title, @text;";
+            CreateIntParameter(note.id, "id");
+            CreateTextParameter(note.title, "title");
+            CreateTextParameter(note.text, "text");
+            cmd.ExecuteNonQuery();
         }
 
         public void Delete(int Id)
@@ -40,7 +47,10 @@ namespace Domain.DbProviders
 
         public bool Exist(int Id)
         {
-            throw new NotImplementedException();
+            ClearCommand();
+            cmd.CommandText = "EXEC ExistNote @id;";
+            CreateIntParameter(Id, "id");
+            return 1 == (int)cmd.ExecuteScalar();
         }
 
         public void Dispose()

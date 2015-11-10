@@ -39,10 +39,15 @@ namespace Domain.DbProviders
             return item;
         }
 
-        protected void ClearCommand()
+        public void UpdateItem(Item item)
         {
             cmd.CommandText = "";
-            cmd.Parameters.Clear();
+            PrepareClearRel(item);
+            PrepareVerRelInsertion(item);
+            PrepareHorRelInsertion(item);
+            cmd.ExecuteNonQuery();
+
+            ClearCommand();
         }
 
         public void UpdateCoord(int[][] coords)
@@ -64,6 +69,13 @@ namespace Domain.DbProviders
             CreateIntParameter(gridId, "id");
             var res = cmd.ExecuteScalar();
             return (int)(Decimal)res;
+        }
+
+
+        private void PrepareClearRel(Item item)
+        {
+            cmd.CommandText += "EXEC ClearRel @clearid;";
+            CreateIntParameter(item.id, "clearid");
         }
 
         private void PrepareHorRelInsertion(Item item)
@@ -96,12 +108,18 @@ namespace Domain.DbProviders
             }
         }
 
-        protected void CreateIntParameter(int id, String name)
+        protected void ClearCommand()
+        {
+            cmd.CommandText = "";
+            cmd.Parameters.Clear();
+        }
+
+        protected void CreateIntParameter(int val, String name)
         {
             var param = new SqlParameter();
             param.ParameterName = name;
             param.SqlDbType = SqlDbType.Int;
-            param.Value = id;
+            param.Value = val;
             param.Direction = ParameterDirection.Input;
             cmd.Parameters.Add(param); 
         }

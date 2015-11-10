@@ -36,7 +36,8 @@
 
     </div>
 
-    <pre ng-show="true" style="background: #aaa;">{{ {messager: messager, setting: setting, items: items} | json }}</pre>
+    <button ng-click="debug = !debug">Показать модель</button>
+    <pre ng-show="debug" style="background: #aaa;">{{ {messager: messager, setting: setting, items: items} | json }}</pre>
     
     <div class="messager" ng-show="messager.active" ng-bind="messager.message"></div>
     <div class="footer">
