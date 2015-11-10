@@ -7,10 +7,11 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Abstract;
 
 namespace Domain.DbProviders
 {
-    public class ItemRepository
+    public class ItemRepository : IItemRepository
     {
         protected DbConnection connection;
         protected DbCommand cmd;
@@ -33,7 +34,28 @@ namespace Domain.DbProviders
             PrepareHorRelInsertion(item);
             cmd.ExecuteNonQuery();
 
+            ClearCommand();
+
             return item;
+        }
+
+        protected void ClearCommand()
+        {
+            cmd.CommandText = "";
+            cmd.Parameters.Clear();
+        }
+
+        public void UpdateCoord(int[][] coords)
+        {
+            ClearCommand();
+            for(var i = 0; i < coords.Length; i++)
+            {
+                cmd.CommandText += "EXEC UpdateCoord @id" + i + ",@x" + i + ",@y" + i + ";";
+                CreateIntParameter(coords[i][0], "id"+i);
+                CreateIntParameter(coords[i][1], "x" + i);
+                CreateIntParameter(coords[i][2], "y" + i);
+            }
+            cmd.ExecuteNonQuery();
         }
 
         private int Create(int gridId)

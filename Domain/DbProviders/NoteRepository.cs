@@ -21,11 +21,11 @@ namespace Domain.DbProviders
         private void CreateNote(Item note)
         {
             cmd.CommandText = "EXEC CreateNote @id, @title, @text;";
-            cmd.Parameters.Clear();
             CreateIntParameter(note.id, "id");
             CreateTextParameter(note.title, "title");
             CreateTextParameter(note.text, "text");
             cmd.ExecuteNonQuery();
+            ClearCommand();
         }
 
         public void Update(Item note)

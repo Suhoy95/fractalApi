@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IArticleRepository.cs" />
     <Compile Include="Abstract\IGridRepository.cs" />
+    <Compile Include="Abstract\IItemRepository.cs" />
     <Compile Include="Abstract\INoteRepository.cs" />
     <Compile Include="DbProviders\ConnectProvider.cs" />
     <Compile Include="DbProviders\GridRepository.cs" />
