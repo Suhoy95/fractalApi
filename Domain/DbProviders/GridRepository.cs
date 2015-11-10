@@ -68,6 +68,7 @@ namespace Domain.DbProviders
                 while (dr.Read())
                 {
                     grid.Slug = dr.GetString(0);
+                    grid.Id = dr.GetInt32(1);
                     grid.Title = dr.GetString(2);
                     grid.Width = dr.GetInt32(4);
                     grid.FixedWidth = dr.GetBoolean(5);
@@ -203,7 +204,7 @@ namespace Domain.DbProviders
     
         public void Dispose()
         {
-            connection.Dispose();
+            cmd.Dispose();
         }
     }
 }

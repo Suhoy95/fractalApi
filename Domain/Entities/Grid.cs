@@ -8,6 +8,7 @@ namespace Domain.Entities
 {
     public class Grid
     {
+        public int Id { get; set; }
         public String Slug { get; set; }
         public String Title { get; set; }
         public int Width { get; set; }

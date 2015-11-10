@@ -61,7 +61,7 @@ namespace FractalApi.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IGridRepository>().To<GridRepository>();
-            kernel.Bind<INoteRepository>().ToConstant(FakeFactory.GetNoteRepository());
+            kernel.Bind<INoteRepository>().To<NoteRepository>();
             kernel.Bind<IArticleRepository>().ToConstant(FakeFactory.GetArticleRepository());
         }        
     }

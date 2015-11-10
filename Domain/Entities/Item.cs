@@ -9,6 +9,7 @@ namespace Domain.Entities
     public class Item
     {
         public int id { get; set; }
+        public int gridId { get; set; }
         public String type { get; set; }
         public int[] analogy { get; set; }
         public int[] sup { get; set; }

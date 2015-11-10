@@ -49,6 +49,7 @@ function loadGrid(slug)
 
       }
       scope.setting = {
+            gridId: data.Id,
             title: data.Title,
             minWidth: data.Width,
             minHeight: 1,
@@ -69,6 +70,8 @@ function createNote(item)
   var scope = this["scope"];
   var url = "/api/note/"
   scope.messager.show("Save Note...")
+ 
+  item.gridId = scope.setting.gridId
   $http.post(url, item)
        .success(function(data){
           scope.messager.tmpShow("Success", 3000);
