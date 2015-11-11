@@ -9,13 +9,22 @@ using System.Data.Common;
 
 namespace Domain.DbProviders
 {
-    public class NoteRepository : ItemRepository, INoteRepository, IDisposable
+    public class NoteRepository : ItemRepository, INoteRepository
     {
         public Item Create(Item note)
         {
-            note = CreateItem(note);
-            CreateNote(note);
-            return note;
+            try
+            {
+                BeginTransaction();
+                note = CreateItem(note);
+                CreateNote(note);
+                EndTransaction();
+                return note;
+            } catch (Exception ex)
+            {
+                RollbackTransaction();
+                throw new Exception("Error in creating note", ex);
+            }
         }
 
         private void CreateNote(Item note)
@@ -30,22 +39,43 @@ namespace Domain.DbProviders
 
         public void Update(Item note)
         {
-            UpdateItem(note);
-            ClearCommand();
+            try
+            {
+                BeginTransaction();
 
-            cmd.CommandText = "EXEC UpdateNote @id, @title, @text;";
-            CreateIntParameter(note.id, "id");
-            CreateTextParameter(note.title, "title");
-            CreateTextParameter(note.text, "text");
-            cmd.ExecuteNonQuery();
+                UpdateItem(note);
+
+                cmd.CommandText = "EXEC UpdateNote @id, @title, @text;";
+                CreateIntParameter(note.id, "id");
+                CreateTextParameter(note.title, "title");
+                CreateTextParameter(note.text, "text");
+                cmd.ExecuteNonQuery();
+
+                EndTransaction();
+            } catch (Exception ex)
+            {
+                RollbackTransaction();
+                throw new Exception("Error in updating note", ex);
+            }
         }
 
         public void Delete(int Id)
         {
-            ClearCommand();
-            cmd.CommandText = "EXEC ClearRel @id; EXEC DeleteNote @id;";
-            CreateIntParameter(Id, "id");
-            cmd.ExecuteNonQuery();
+            try
+            {
+                BeginTransaction();
+
+                ClearCommand();
+                cmd.CommandText = "EXEC ClearRel @id; EXEC DeleteNote @id;";
+                CreateIntParameter(Id, "id");
+                cmd.ExecuteNonQuery();
+
+                EndTransaction();
+            } catch(Exception ex)
+            {
+                RollbackTransaction();
+                throw new Exception("Error in deleting note", ex);
+            }
         }
 
         public bool Exist(int Id)
@@ -54,11 +84,6 @@ namespace Domain.DbProviders
             cmd.CommandText = "EXEC ExistNote @id;";
             CreateIntParameter(Id, "id");
             return 1 == (int)cmd.ExecuteScalar();
-        }
-
-        public void Dispose()
-        {
-            cmd.Dispose();
         }
     }
 }

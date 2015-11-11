@@ -11,10 +11,11 @@ using Domain.Abstract;
 
 namespace Domain.DbProviders
 {
-    public class ItemRepository : IItemRepository
+    public class ItemRepository : IItemRepository, IDisposable
     {
         protected DbConnection connection;
         protected DbCommand cmd;
+        protected DbTransaction tx;
 
         public ItemRepository()
         {
@@ -132,6 +133,28 @@ namespace Domain.DbProviders
             param.Value = text;
             param.Direction = ParameterDirection.Input;
             cmd.Parameters.Add(param);
+        }
+
+        protected void BeginTransaction()
+        {
+            tx = connection.BeginTransaction();
+            cmd.Transaction = tx;
+        }
+
+        protected void EndTransaction()
+        {
+            tx.Commit();
+        }
+
+        protected void RollbackTransaction()
+        {
+            tx.Rollback();
+        }
+
+        public void Dispose()
+        {
+            connection.Dispose();
+            cmd.Dispose();
         }
     }
 }
