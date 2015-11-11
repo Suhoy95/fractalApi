@@ -11,21 +11,8 @@ using Domain.Abstract;
 
 namespace Domain.DbProviders
 {
-    public class ItemRepository : IItemRepository, IDisposable
+    public class ItemRepository : DbHelper, IItemRepository
     {
-        protected DbConnection connection;
-        protected DbCommand cmd;
-        protected DbTransaction tx;
-
-        public ItemRepository()
-        {
-            connection = ConnectProvider.CreateConnection();
-            cmd = ConnectProvider.CreateCommand();
-
-            connection.Open();
-            cmd.Connection = connection;
-        }
-
         public Item CreateItem(Item item)
         {
             item.id = Create(item.gridId);
@@ -107,54 +94,6 @@ namespace Domain.DbProviders
                 CreateIntParameter(item.sup[i], "sup" + i);
                 CreateIntParameter(item.id, "meSub" + i);
             }
-        }
-
-        protected void ClearCommand()
-        {
-            cmd.CommandText = "";
-            cmd.Parameters.Clear();
-        }
-
-        protected void CreateIntParameter(int val, String name)
-        {
-            var param = new SqlParameter();
-            param.ParameterName = name;
-            param.SqlDbType = SqlDbType.Int;
-            param.Value = val;
-            param.Direction = ParameterDirection.Input;
-            cmd.Parameters.Add(param); 
-        }
-
-        protected void CreateTextParameter(String text, String name)
-        {
-            var param = new SqlParameter();
-            param.ParameterName = name;
-            param.SqlDbType = SqlDbType.NVarChar;
-            param.Value = text;
-            param.Direction = ParameterDirection.Input;
-            cmd.Parameters.Add(param);
-        }
-
-        protected void BeginTransaction()
-        {
-            tx = connection.BeginTransaction();
-            cmd.Transaction = tx;
-        }
-
-        protected void EndTransaction()
-        {
-            tx.Commit();
-        }
-
-        protected void RollbackTransaction()
-        {
-            tx.Rollback();
-        }
-
-        public void Dispose()
-        {
-            connection.Dispose();
-            cmd.Dispose();
         }
     }
 }

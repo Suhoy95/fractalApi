@@ -50,6 +50,7 @@
     <Compile Include="Abstract\IItemRepository.cs" />
     <Compile Include="Abstract\INoteRepository.cs" />
     <Compile Include="DbProviders\ConnectProvider.cs" />
+    <Compile Include="DbProviders\DbHelper.cs" />
     <Compile Include="DbProviders\GridRepository.cs" />
     <Compile Include="DbProviders\ItemRepository.cs" />
     <Compile Include="DbProviders\NoteRepository.cs" />

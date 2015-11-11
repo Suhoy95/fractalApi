@@ -204,6 +204,7 @@ namespace Domain.DbProviders
     
         public void Dispose()
         {
+            connection.Dispose();
             cmd.Dispose();
         }
     }
