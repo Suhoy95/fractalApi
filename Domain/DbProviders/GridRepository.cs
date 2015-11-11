@@ -11,28 +11,15 @@ using System.Data;
 
 namespace Domain.DbProviders
 {
-    public class GridRepository : IGridRepository, IDisposable
+    public class GridRepository : DbHelper, IGridRepository
     {
-        private DbConnection connection;
-        private DbCommand cmd;
-
-        public GridRepository()
-        {
-            connection = ConnectProvider.CreateConnection();
-            cmd = ConnectProvider.CreateCommand();
-
-            connection.Open();
-            cmd.Connection = connection;
-        }
-
         public Grid Get(string slug)
         {
             var grid = new Grid();
             int id;
-            CreateSlugParameter(slug);
-            id = GetGridInformation(grid);
+            id = GetGridInformation(grid, slug);
 
-            CreateIdParameter(id);
+            CreateIntParameter(id, "id");
             grid.Items = GetGridItems();
             FillNoteItem(grid.Items);
             FillGridItem(grid.Items);
@@ -40,29 +27,10 @@ namespace Domain.DbProviders
             return grid;
         }
 
-        private void CreateSlugParameter(String slug)
-        {
-            var param = new SqlParameter(); 
-            param.ParameterName = "slug"; 
-            param.SqlDbType = SqlDbType.VarChar; 
-            param.Value = slug; 
-            param.Direction = ParameterDirection.Input; 
-            cmd.Parameters.Add(param); 
-        }
-
-        private void CreateIdParameter(int id)
-        {
-            var param = new SqlParameter();
-            param.ParameterName = "id";
-            param.SqlDbType = SqlDbType.Int;
-            param.Value = id;
-            param.Direction = ParameterDirection.Input;
-            cmd.Parameters.Add(param); 
-        }
-
-        private int GetGridInformation(Grid grid)
+        private int GetGridInformation(Grid grid, string slug)
         {
             cmd.CommandText = "EXEC GetList @slug;";
+            CreateTextParameter(slug, "slug");
             using (DbDataReader dr = cmd.ExecuteReader())
             {
                 while (dr.Read())
@@ -179,12 +147,31 @@ namespace Domain.DbProviders
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            //try
+            //{
+            //    BeginTransaction();
+
+            //    ClearCommand();
+            //    cmd.CommandText = "EXEC ClearRel @id; EXEC DeleteList @id;";
+            //    CreateIntParameter(Id, "id");
+            //    cmd.ExecuteNonQuery();
+
+            //    EndTransaction();
+            //}
+            //catch (Exception ex)
+            //{
+            //    RollbackTransaction();
+            //    throw new Exception("Error in deleting list", ex);
+            //}
+            return true;
         }
 
         public bool Exsist(int id)
         {
-            throw new NotImplementedException();
+            ClearCommand();
+            cmd.CommandText = "EXEC ExistList @id;";
+            CreateIntParameter(id, "id");
+            return 1 == (int)cmd.ExecuteScalar();
         }
 
         public Item Create(Item grid)
@@ -200,12 +187,6 @@ namespace Domain.DbProviders
         public void Update(PartialGrid grid)
         {
             throw new NotImplementedException();
-        }
-    
-        public void Dispose()
-        {
-            connection.Dispose();
-            cmd.Dispose();
         }
     }
 }
