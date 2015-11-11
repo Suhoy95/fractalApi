@@ -66,7 +66,7 @@ namespace Domain.DbProviders
                 BeginTransaction();
 
                 ClearCommand();
-                cmd.CommandText = "EXEC DeleteNote @id;";
+                cmd.CommandText = "EXEC DeleteItem @id;";
                 CreateIntParameter(Id, "id");
                 cmd.ExecuteNonQuery();
 

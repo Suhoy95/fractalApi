@@ -11,7 +11,7 @@ using System.Data;
 
 namespace Domain.DbProviders
 {
-    public class GridRepository : DbHelper, IGridRepository
+    public class GridRepository : ItemRepository, IGridRepository
     {
         public Grid Get(string slug)
         {
@@ -145,25 +145,24 @@ namespace Domain.DbProviders
         }
 
 
-        public bool Delete(int id)
+        public void Delete(int id)
         {
-            //try
-            //{
-            //    BeginTransaction();
+            try
+            {
+                BeginTransaction();
 
-            //    ClearCommand();
-            //    cmd.CommandText = "EXEC ClearRel @id; EXEC DeleteList @id;";
-            //    CreateIntParameter(Id, "id");
-            //    cmd.ExecuteNonQuery();
+                ClearCommand();
+                cmd.CommandText = "EXEC DeleteItem @id;";
+                CreateIntParameter(id, "id");
+                cmd.ExecuteNonQuery();
 
-            //    EndTransaction();
-            //}
-            //catch (Exception ex)
-            //{
-            //    RollbackTransaction();
-            //    throw new Exception("Error in deleting list", ex);
-            //}
-            return true;
+                EndTransaction();
+            }
+            catch (Exception ex)
+            {
+                RollbackTransaction();
+                throw new Exception("Error in deleting list", ex);
+            }
         }
 
         public bool Exsist(int id)
@@ -176,7 +175,30 @@ namespace Domain.DbProviders
 
         public Item Create(Item grid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                BeginTransaction();
+                grid = CreateItem(grid);
+                CreateGrid(grid);
+                EndTransaction();
+                return grid;
+            }
+            catch (Exception ex)
+            {
+                RollbackTransaction();
+                throw new Exception("Error in creating grid", ex);
+            }
+        }
+
+        private void CreateGrid(Item grid)
+        {
+            cmd.CommandText = "EXEC CreateList @slug, @id, @title, @text;";
+            CreateTextParameter(grid.slug, "slug");
+            CreateIntParameter(grid.id, "id");
+            CreateTextParameter(grid.title, "title");
+            CreateTextParameter(grid.text, "text");
+            cmd.ExecuteNonQuery();
+            ClearCommand();
         }
 
         public void Update(Item grid)
@@ -187,6 +209,15 @@ namespace Domain.DbProviders
         public void Update(PartialGrid grid)
         {
             throw new NotImplementedException();
+        }
+
+        public bool IsCorrectSlug(string slug, int id)
+        {
+            ClearCommand();
+            cmd.CommandText = "EXEC FindSameSlug @slug, @id;";
+            CreateTextParameter(slug, "slug");
+            CreateIntParameter(id, "id");
+            return 0 == (int)cmd.ExecuteScalar();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
+using FractalApi.HttpExceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,29 +22,22 @@ namespace FractalApi.Controllers
         [HttpPost]
         public Item Create(Item grid)
         {
-            if (grid.slug == "sad")
-                BadSlug();
+            if (!db.IsCorrectSlug(grid.slug, grid.id))
+                throw HttpExceptionFactory.BadSlug();
 
-            grid.id = 10;
-            return grid;// db.Create(grid);
+            return db.Create(grid);
         }
 
         [HttpPut]
         public void Update(Item grid)
         {
+            if (!db.IsCorrectSlug(grid.slug, grid.id))
+                throw HttpExceptionFactory.BadSlug();
+
             if(db.Exsist(grid.id))
             {
                 db.Update(grid);
             }
-        }
-
-        private void BadSlug()
-        {
-            var response = new HttpResponseMessage(HttpStatusCode.BadRequest)
-            {
-                Content = new StringContent("BadSlug")
-            };
-            throw new HttpResponseException(response);
-        }
+        }       
     }
 }

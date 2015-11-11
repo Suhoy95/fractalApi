@@ -71,7 +71,7 @@ function createNote(item)
   var url = "/api/note/"
   scope.messager.show("Save Note...")
  
-  item.gridId = scope.setting.gridId
+  item.gridId = scope.setting.gridId;
   $http.post(url, item)
        .success(function(data){
           scope.messager.tmpShow("Success", 3000);
@@ -116,6 +116,8 @@ function createGridItem(item)
   var scope = this["scope"];
   var url = "/api/griditem/"
   scope.messager.show("Save Grid...")
+
+  item.gridId = scope.setting.gridId;
   $http.post(url, item)
        .success(function(data){
           scope.messager.tmpShow("Success", 3000);

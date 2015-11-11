@@ -32,6 +32,11 @@ namespace Domain.DbProviders
 
         protected void CreateIntParameter(int val, String name)
         {
+            if (cmd.Parameters.IndexOf(name) >= 0)
+            {
+                cmd.Parameters[name].Value = val;
+                return;
+            }
             var param = new SqlParameter();
             param.ParameterName = name;
             param.SqlDbType = SqlDbType.Int;
@@ -42,6 +47,11 @@ namespace Domain.DbProviders
 
         protected void CreateTextParameter(String text, String name)
         {
+            if (cmd.Parameters.IndexOf(name) >= 0)
+            {
+                cmd.Parameters[name].Value = text;
+                return;
+            } 
             var param = new SqlParameter();
             param.ParameterName = name;
             param.SqlDbType = SqlDbType.NVarChar;

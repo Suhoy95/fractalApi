@@ -20,7 +20,8 @@ namespace Domain.DbProviders
             cmd.CommandText = "";
             PrepareVerRelInsertion(item);
             PrepareHorRelInsertion(item);
-            cmd.ExecuteNonQuery();
+            if(cmd.CommandText != "")
+                cmd.ExecuteNonQuery();
 
             ClearCommand();
 
@@ -33,7 +34,8 @@ namespace Domain.DbProviders
             PrepareClearRel(item);
             PrepareVerRelInsertion(item);
             PrepareHorRelInsertion(item);
-            cmd.ExecuteNonQuery();
+            if(cmd.CommandText != "")
+                cmd.ExecuteNonQuery();  
 
             ClearCommand();
         }
@@ -48,7 +50,8 @@ namespace Domain.DbProviders
                 CreateIntParameter(coords[i][1], "x" + i);
                 CreateIntParameter(coords[i][2], "y" + i);
             }
-            cmd.ExecuteNonQuery();
+            if(cmd.CommandText == "")
+                cmd.ExecuteNonQuery();
         }
 
         private int Create(int gridId)

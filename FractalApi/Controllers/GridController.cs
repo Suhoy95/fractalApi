@@ -1,5 +1,6 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
+using FractalApi.HttpExceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,9 @@ namespace FractalApi.Controllers
         [HttpPut]
         public void Update(PartialGrid grid)
         {
+            if (!db.IsCorrectSlug(grid.Slug, grid.Id))
+                throw HttpExceptionFactory.BadSlug();
+
             if(db.Exsist(grid.Id))
             {
                 db.Update(grid);
