@@ -203,7 +203,26 @@ namespace Domain.DbProviders
 
         public void Update(Item grid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                BeginTransaction();
+
+                UpdateItem(grid);
+
+                cmd.CommandText = "EXEC UpdateListAsItem @slug, @id, @title, @text;";
+                CreateTextParameter(grid.slug, "slug");
+                CreateIntParameter(grid.id, "id");
+                CreateTextParameter(grid.title, "title");
+                CreateTextParameter(grid.text, "text");
+                cmd.ExecuteNonQuery();
+
+                EndTransaction();
+            }
+            catch (Exception ex)
+            {
+                RollbackTransaction();
+                throw new Exception("Error in updating griditem", ex);
+            }
         }
 
         public void Update(PartialGrid grid)

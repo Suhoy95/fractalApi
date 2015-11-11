@@ -40,7 +40,7 @@ function loadGrid(slug)
   $http.get(url).success(function(data) {
       scope.messager.tmpShow("Loaded " + url, 3000);
       
-      scope.items = [];
+      scope.items.splice(0, scope.items.length);
       for(var x = 0; x < data.Items.length; x++)
       {
         scope.items[x] = [];

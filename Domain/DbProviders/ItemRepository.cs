@@ -50,7 +50,7 @@ namespace Domain.DbProviders
                 CreateIntParameter(coords[i][1], "x" + i);
                 CreateIntParameter(coords[i][2], "y" + i);
             }
-            if(cmd.CommandText == "")
+            if(cmd.CommandText != "")
                 cmd.ExecuteNonQuery();
         }
 
