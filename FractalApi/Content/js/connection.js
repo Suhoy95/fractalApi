@@ -60,9 +60,38 @@ function loadGrid(slug)
             pageKeywords: data.PageKeywords
       };
       scope.completeGrid();
-  }).error(function(){
+  }).error(function(data, status_code){
+      if(status_code == 404){
+        setNotFoundGrid(scope);
+        return;
+      }
       scope.messager.show("Fail in load " + url);
   });
+}
+
+function setNotFoundGrid(scope)
+{
+  scope.items.splice(0, scope.items.length);
+  var message = itemFactory.noteItem({
+    title: "Ошибка", 
+    text: "К сожалению, данной страницы не существует."
+  });
+  var main = itemFactory.gridItem({
+    slug: "main",
+    title: "Главная",
+    text: "Вернуться на главную страницу"
+  });
+  scope.items[0] = [message];
+  scope.items[1] = [main];
+
+  scope.setting = {
+        title: "404: Страница не найдена",
+        width: 2,
+        minWidth: 2,
+        minHeight: 1,
+        fixedWidth: true,
+        pageTitle: "Страница не найдена - Fractal"
+  };
 }
 
 function createNote(item)

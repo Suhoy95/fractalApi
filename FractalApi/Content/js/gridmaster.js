@@ -127,7 +127,30 @@ FractalGridMaster.factory('gridMaster', ["itemFactory", function(itemFactory) {
             if(i >= 0)
             {
                 column.splice(i, 1);
-                return;
+                break;
+            }
+        }
+
+        clearId(items, item.id);
+    }
+
+    function clearId(items, id)
+    {
+        for(var x = 0; x < items.length; x++)
+            for(var y = 0; y < items[x].length; y++)
+            {
+                var item = items[x][y];
+                cleanArray(item.analogy, id);
+                cleanArray(item.sub, id);
+                cleanArray(item.sup, id);
+            }
+
+    }
+
+    function cleanArray(array,  that){
+        for(var i in array){
+            if(array[i] == that){
+                array.splice(i,1);
             }
         }
     }

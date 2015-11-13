@@ -16,6 +16,8 @@
         <h1 ng-bind="setting.title" >Fractal#demo</h1>
         <div class="controll">
             <button class="customization-button" ng-click="show_setting = !show_setting"></button>
+            <button class="login-button">Войти</button>
+            <button class="information-button"></button>
             <button ng-click="editing_mode = !editing_mode" ng-show="!editing_mode">Редактировать</button>
             <button ng-click="editing_mode = !editing_mode" ng-show="editing_mode">Выйти из режима редактирования</button>
             <button ng-click="shower.clearBinding()" ng-show="shower.state() !== 'grid'">Вернуться к сетке элементов</button>

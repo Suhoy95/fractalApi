@@ -21,7 +21,15 @@ namespace FractalApi.Controllers
 
         public Grid Get(string slug)
         {
-            return db.Get(slug);
+            try
+            {
+                return db.Get(slug);
+            } catch(Exception ex)
+            {
+                if (ex.Message == "Grid Not Found")
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw ex;
+            }
         }
 
         [HttpPut]

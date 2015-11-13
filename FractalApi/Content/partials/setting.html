@@ -1,18 +1,44 @@
-<div class="customization-bar">
-    <h2> Настройки </h2>
-    <label>Минимальная ширина: <input type="text" 
-                                      ng-model = "setting.minWidth"
-                                      min="1"
-                                      ng-change = "completeGrid()"><br>
-    </label> 
-    
+<div class="customization bar">
+  <form name="custom">
+    <h2> Настройки страницы </h2>
+    <ul class="error">
+      <li ng-show="custom.title.$error.required">Не заполнено найзвоние страницы</li>
+      <li ng-show="custom.title.$error.maxlength">Название не должно превышать 255 символов</li>
+      <li ng-show="custom.description.$error.maxlength">Описание не должно превышать 8000 символов</li>
+      <li ng-show="custom.slug.$error.required">Адресс страницы не заполнен</li>
+      <li ng-show="custom.slug.$error.pattern">Адресс страницы должен быть только из букв a-z</li>
+      <li ng-show="custom.width.$error.min">Минимальная ширина не может быть меньше 1</li>
+      <li ng-show="custom.width.$error.max">Минимальная ширина не может быть больше 20</li>
+    </ul>
     <label>
-            <input type="checkbox" 
-                   ng-model="setting.fixedWidth"
-                   ng-change="completeGrid()">
-            Зафиксировать ширину
+        Название страницы: <input class="text" name="title" type="text" 
+        ng-model="setting.title"
+        required
+        ng-maxlength="255" />
+    </label>
+    <label>
+        Описание страницы:<br />
+        <textarea name="description" ng-model="setting.description" ng-maxlength="8000"></textarea>
+    </label>
+    <label>
+        Адресс страницы (/grid/...): <input class="text" type="text"
+                                    name="slug" ng-model="setting.slug" required
+                                    ng-pattern="/[a-zA-Z]+/" />
+    </label>
+    <label>
+        Минимальная ширина: <input class="text" name="width" type="number" name="workplace-width" 
+                                   ng-model="setting.minWidth"
+                                   min="1"
+                                   max="20"
+                                   ng-change="completeGrid()"></label> 
+    <label>
+        <input type="checkbox" name="fixed-width" 
+                     ng-model="setting.fixedWidth"
+                     ng-change="completeGrid()"> Зафиксировать ширину
     </label>
     <br>
-    <p>текущая ширина: {{setting.width}}</p>
-    <p>текущая высота: {{setting.height}}</p>
+    <button>Сохранить</button>
+  </form>
+  <p>текущая ширина: {{setting.width}}</p>
+  <p>текущая высота: {{setting.height}}</p>
 </div>

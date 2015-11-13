@@ -20,7 +20,7 @@ namespace FractalApi
                 name: "ApiWithSlug",
                 routeTemplate: "api/{controller}/{slug}",
                 defaults: new { slug = RouteParameter.Optional },
-                constraints: new { slug=@"[a-zA-Z]+"}
+                constraints: new { slug=@"[a-zA-Z0-9]+"}
             );
 
             config.Routes.MapHttpRoute(

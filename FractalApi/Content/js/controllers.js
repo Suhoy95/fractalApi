@@ -77,7 +77,7 @@ FractalControllers.controller("gridController", ["$scope", "gridMaster", "$windo
         updateCoordTimer = $timeout(function(){
             var coord = gridMaster.getItemsCoord($scope.items);
             $scope.connection.updateCoord(coord);
-        }, 5000);
+        }, 500);
 
     };
 

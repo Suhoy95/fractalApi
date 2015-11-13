@@ -79,27 +79,92 @@
   background-size: 2em;
 }
 
-.header .customization-bar {
+.header .information-button {
+  width: 2em;
+  height: 2em;
+  background: url('img/information.png');
+  background-size: 2em;
+}
+
+.header .information-button:hover {
+  cursor: pointer;
+}
+
+.header .information-button:active {
+  background-image: url('img/information-active.png');
+  background-size: 2em;
+}
+
+.header .login-button {
+  height: 2em;
+  padding-left: 2em;
+  background: url('img/login.png') no-repeat;
+  background-size: 2em;
+}
+
+.header .login-button:hover {
+  cursor: pointer;
+}
+
+.header .login-button:active {
+  background: url('img/login-active.png') no-repeat;
+  background-size: 2em;
+}
+
+.header .bar {
   position: absolute;
   top: 2.9em; right: 0.5em;
   width: 18em;
-  min-height: 20em;
   padding: 1em;
   background: rgba(255, 255, 255, 0.97);
   box-shadow: 0.5em 0.5em 0.4em 0.01em rgba(0,0,0, 0.2);
   border: 1px solid rgba(150, 150, 150, 0.3);
 }
 
-.header .customization-bar h2 {
+.header .bar h2 {
   position:relative;
   left: 0.2em;
   margin-bottom: 0.3em;
   color: rgba(0,0,0,0.67);
 }
 
-.header .customization-bar label {
+.header .bar .error {
+  position:relative;
+  left: 0.2em;
+  margin-bottom: 0.3em;
+  color: rgba(140,0,0,0.67);
+  list-style: none; 
+}
+
+.header .bar .error li {
+  margin-bottom: 0.3em;
+  padding-left: 1em;
+  background: rgba(150, 0,0, 0.17);
+  border-left: 4px solid rgba(200, 0,0, 0.67);
+}
+
+.header .bar label {
   display: block;
   padding: 0.1em 0;
+}
+
+.header .bar textarea {
+    width: 100%;
+    height: 10em;
+    padding: 0;
+    margin: 0.5em 0 0.5em 0;
+    resize: none;
+}
+
+.header .bar button {
+  padding: 0 0.5em 0;
+  font-size: 1em;
+}
+
+
+.header .bar .text {
+  width: 100%;
+  padding: 0.2em 0 0.2em 0em;
 }
 
 .header .setting_handler {

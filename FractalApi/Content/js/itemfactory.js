@@ -10,6 +10,7 @@ FractalItemFactory.factory('itemFactory', function() {
         emptyItem: emptyItem,
         baseItem: baseItem,
         noteItem: noteItem,
+        gridItem: gridItem,
         recovery: recovery
     };
 
