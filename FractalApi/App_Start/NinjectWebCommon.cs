@@ -60,6 +60,7 @@ namespace FractalApi.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<IItemRepository>().To<ItemRepository>();
             kernel.Bind<IGridRepository>().To<GridRepository>();
             kernel.Bind<INoteRepository>().To<NoteRepository>();

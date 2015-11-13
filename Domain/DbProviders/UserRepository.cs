@@ -18,12 +18,12 @@ namespace Domain.DbProviders
             return res == null ? null : (String)res;
         }
 
-        public void Login(string login, string token)
+        public String Login(string login, string token)
         {
             cmd.CommandText = "EXEC Login @login, @token;";
             CreateTextParameter(login, "login");
             CreateTextParameter(token, "token");
-            cmd.ExecuteNonQuery();
+            return (String)cmd.ExecuteScalar();
         }
 
         public void Create(string login, string password, String role)

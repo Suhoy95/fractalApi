@@ -32,9 +32,9 @@ namespace FractalApi.Controllers
                 throw new HttpResponseException(HttpStatusCode.Unauthorized);
 
             var token = CreateToken();
-            db.Login(user.Login, token);
+            var name = db.Login(user.Login, token);
 
-            return user.Login + ":" + token;
+            return user.Login + ":" + token + "#" + name;
         }
 
         [HttpGet]

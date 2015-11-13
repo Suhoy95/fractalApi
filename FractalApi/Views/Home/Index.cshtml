@@ -16,15 +16,21 @@
         <h1 ng-bind="setting.title" >Fractal#demo</h1>
         <div class="controll">
             <button class="customization-button" ng-click="show_setting = !show_setting"></button>
-            <button class="login-button">Войти</button>
-            <button class="information-button"></button>
-            <button ng-click="editing_mode = !editing_mode" ng-show="!editing_mode">Редактировать</button>
-            <button ng-click="editing_mode = !editing_mode" ng-show="editing_mode">Выйти из режима редактирования</button>
-            <button ng-click="shower.clearBinding()" ng-show="shower.state() !== 'grid'">Вернуться к сетке элементов</button>
-            <button ng-click="linker.disable()" ng-show="linker.isSelecting()">Выйти из режима создания связей</button>      
+            <button class="login-button" ng-click="show_login = !show_login" ng-bind="authManager.isAuth ? 'Профиль':'Войти'"></button>
+            <button class="information-button" ng-click="show_inf = !show_inf"></button>
+            <button ng-click="editing_mode = !editing_mode" ng-show="!editing_mode" ng-bind="'Редактировать'"></button>
+            <button ng-click="editing_mode = !editing_mode" ng-show="editing_mode" ng-bind="'Выйти из режима редактирования'"></button>
+            <button ng-click="shower.clearBinding()" ng-show="shower.state() !== 'grid'" ng-bind="'Вернуться к сетке элементов'"></button>
+            <button ng-click="linker.disable()" ng-show="linker.isSelecting()" ng-bind="'Выйти из режима создания связей'"></button>      
         </div>
-        <div class="setting_handler" ng-show="show_setting" ng-click="show_setting = !show_setting"></div>
+        <div class="handler" ng-show="show_setting" ng-click="show_setting = !show_setting"></div>
         <div ng-include="'/Content/partials/setting.html'" ng-show="show_setting"></div>
+
+        <div class="handler" ng-show="show_login" ng-click="show_login = !show_login"></div>
+        <div ng-include="'/Content/partials/login.html'" ng-show="show_login"></div>
+
+        <div class="handler" ng-show="show_inf" ng-click="show_inf = !show_inf"></div>
+        <div ng-include="'/Content/partials/information.html'" ng-show="show_inf"></div>
     </div>
 
     <div ng-switch="shower.state()">
@@ -80,6 +86,7 @@
     <script src="/Content/bower_components/angular-ui-sortable/sortable.js"></script>
     <script src="/Content/js/app.js"></script>
     <script src="/Content/js/connection.js"></script>
+    <script src="/Content/js/auth.js"></script>
     <script src="/Content/js/itemfactory.js"></script>
     <script src="/Content/js/gridmaster.js"></script>
     <script src="/Content/js/messager.js"></script>

@@ -1,0 +1,22 @@
+<div class="login bar" >
+    <form name="auth" ng-show="!authManager.isAuth">
+        <h2>Войти в систему</h2>
+        <ul class="error">
+            <li ng-show="authManager.badlogin">Неверный логин/пароль</li>
+        </ul>
+        <label>
+            <p>Логин:</p>
+            <input class="text" type="text" name="login" ng-model="authManager.login" required>
+        </label>
+        <label>
+            <p>Пароль:</p>
+            <input class="text" type="password" name="password" ng-model="authManager.password" required>
+        </label> 
+        <br>
+        <button ng-disabled="auth.$invalid" ng-click="authManager.authorizate()">Войти</button>
+    </form>
+    <div ng-show="authManager.isAuth">
+        <p>Пользователь: {{authManager.name}}</p>
+        <button ng-click="authManager.out()">Выйти</button>
+    </div>
+</div>

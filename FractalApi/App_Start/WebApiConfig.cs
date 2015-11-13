@@ -17,6 +17,12 @@ namespace FractalApi
             );
 
             config.Routes.MapHttpRoute(
+                name: "AuthApi",
+                routeTemplate: "api/auth/{action}",
+                defaults: new { controller = "Auth"}
+            );
+
+            config.Routes.MapHttpRoute(
                 name: "ApiWithSlug",
                 routeTemplate: "api/{controller}/{slug}",
                 defaults: new { slug = RouteParameter.Optional },

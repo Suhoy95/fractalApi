@@ -4,6 +4,7 @@
 
 var FractalApp = angular.module('FractalApp', ['ui.sortable',
                                                'FractalConnection',
+                                               'FractalAuth',
                                                'FractalGridMaster',
                                                'FractalLinker',
                                                'FractalShower',
