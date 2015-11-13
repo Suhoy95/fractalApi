@@ -36,7 +36,7 @@ function loadGrid(slug)
     url += ($location.path() == "/" ? "/grid/main" : $location.path());
   
 
-  scope.messager.show("load " + url)
+  scope.messager.show("load " + url);
   $http.get(url).success(function(data) {
       scope.messager.tmpShow("Loaded " + url, 3000);
       

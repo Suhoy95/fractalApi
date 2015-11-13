@@ -10,6 +10,7 @@ FractalControllers.controller("dataController",
 
     connection.scope = $scope;
     $scope.items = [];
+    $scope.setting = {};
     $scope.messager = messager;
     $scope.connection = connection;
     $scope.linker = linker;

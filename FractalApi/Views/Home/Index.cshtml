@@ -30,6 +30,7 @@
     <div ng-switch="shower.state()">
         <div ng-switch-when="grid">
             <div class="workplace clearfix" ng-controller="gridController" complite-width="{{setting.width}}">
+
                 <div class="column" ui-sortable="sortableOptions" ng-repeat="column in items" ng-model="column">
                     <div ng-repeat="item in column">
                         <div ng-include="'/Content/partials/item/' + item.type + '.html'" ng-controller="itemController"></div>

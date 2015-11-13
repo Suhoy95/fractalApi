@@ -49,14 +49,17 @@
     <Compile Include="Abstract\IGridRepository.cs" />
     <Compile Include="Abstract\IItemRepository.cs" />
     <Compile Include="Abstract\INoteRepository.cs" />
+    <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="DbProviders\ConnectProvider.cs" />
     <Compile Include="DbProviders\DbHelper.cs" />
     <Compile Include="DbProviders\GridRepository.cs" />
     <Compile Include="DbProviders\ItemRepository.cs" />
     <Compile Include="DbProviders\NoteRepository.cs" />
+    <Compile Include="DbProviders\UserRepository.cs" />
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\Grid.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="FakesDb\FakeFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
