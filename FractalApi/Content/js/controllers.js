@@ -206,7 +206,6 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
             }
             if(item.state != "error")
                 $timeout(recoveryId, 500);
-            
         }
     }
 
@@ -215,7 +214,7 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
         if(item.action == "saving")
         {
             item.state = "edit";
-            $scope.saveGrid(item);
+            $scope.saveGridItem(item);
         } else if(item.action == "deleting")
             $scope.deleteGird(item);
     }

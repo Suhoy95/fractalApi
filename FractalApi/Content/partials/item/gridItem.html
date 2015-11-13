@@ -92,4 +92,42 @@
         <button class="save-note" ng-click="saveGridItem(item)">Сохранить</button>
     </div>
 
+     <div class="item note error" ng-switch-when="error"> 
+                     
+        <h2>{{item.title}}</h2>
+        
+        <div class="controll clearfix">
+            <button class="delete-item" title="Удалить"></button>
+            <button class="edit-item" title="Редактировать"></button>
+            <span class="button sort-item" title="Переместить" ng-show="shower.state() == 'grid'"></span>
+            <button class="analogy" title="Показать аналогии"
+                    ng-disabled="item.analogy.length == 0">
+                    {{item.analogy.length}}
+            </button> 
+            <button class="sub-item" title="Показать подэлементы"
+                    ng-disabled="item.sub.length == 0">
+                    {{item.sub.length}}
+            </button>
+            <button class="sup-item" title="Показать надэлементы"
+                    ng-disabled="item.sup.length == 0">
+                    {{item.sup.length}}
+            </button>                    
+        </div>
+
+        <div class="description">
+            {{item.text}}
+        </div>
+        <div class="cover">
+            <p ng-click="tryCompleteGrid(item)">
+                Произошла ошибка. <br /> 
+                Нажмите, что бы попытаться 
+                <span ng-switch="item.action">
+                    <span ng-switch-when="saving">сохранить</span>
+                    <span ng-switch-when="deleting">удалить</span> 
+                </span>
+                лист снова. 
+            </p>
+        </div>
+    </div>
+
 </div>
