@@ -34,6 +34,14 @@ namespace Domain.DbProviders
             cmd.ExecuteNonQuery();
         }
 
+        public bool HasPermission(string login, int listId)
+        {
+            cmd.CommandText = "EXEC UserHasPermission @login, @listId;";
+            CreateTextParameter(login, "login");
+            CreateIntParameter(listId, "listId");
+            return 1 == (int)cmd.ExecuteScalar();
+        }
+
         public async Task<String> GetRoleAsync(String login, String token)
         {
             cmd.CommandText = "EXEC Auth @login, @token;";
