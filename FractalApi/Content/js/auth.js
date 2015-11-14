@@ -16,7 +16,6 @@ FractalAuth.factory('authManager', ["$http", "$cookies", function($http, $cookie
         out: out
     };
 
-    manager.checkAuth();
     return manager;
 
 function authorizate(setting) {

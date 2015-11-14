@@ -29,5 +29,12 @@ namespace FractalApi.HttpExceptions
 
             return new HttpResponseException(response);
         }
+
+        public static HttpResponseException Forbidden()
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.Forbidden);
+
+            return new HttpResponseException(response);
+        }
     }
 }

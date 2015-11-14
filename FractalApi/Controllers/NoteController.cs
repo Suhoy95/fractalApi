@@ -10,29 +10,30 @@ using System.Web.Http;
 
 namespace FractalApi.Controllers
 {
+    [Authorize]
     public class NoteController : ApiController
     {
         private INoteRepository db;
+        private IUserRepository userDb;
 
-        public NoteController(INoteRepository db)
+        public NoteController(INoteRepository db, IUserRepository userDb)
         {
             this.db = db;
+            this.userDb = userDb;
         }
 
         [HttpPost]
         public Item Create(Item note)
-        {          
-            if(ModelState.IsValid)
-                return db.Create(note);
-
-            throw HttpExceptionFactory.InvalidModel();
-        }
+        {
+            CheckNote(note);
+            
+            return db.Create(note);           
+        }        
 
         [HttpPut]
         public void Update(Item note)
         {
-            if(!ModelState.IsValid)
-                throw HttpExceptionFactory.InvalidModel();
+            CheckNote(note);
 
             if (db.Exist(note.id))
             {
@@ -41,12 +42,23 @@ namespace FractalApi.Controllers
         }
 
         [HttpDelete]
-        public void Delete(int id)
+        public void Delete(Item note)
         {
-            if(db.Exist(id))
+            CheckNote(note);
+
+            if(db.Exist(note.id))
             {
-                db.Delete(id);
+                db.Delete(note.id);
             }
+        }
+
+        private void CheckNote(Item note)
+        {
+            if (!userDb.HasPermission(User.Identity.Name, note.gridId))
+                throw HttpExceptionFactory.Forbidden();
+
+            if (!ModelState.IsValid)
+                throw HttpExceptionFactory.InvalidModel();
         }
     }
 }

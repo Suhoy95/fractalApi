@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace FractalApi.Controllers
 {
+    [Authorize]
     public class GridController : ApiController
     {
         private IGridRepository db;
@@ -21,6 +22,7 @@ namespace FractalApi.Controllers
             this.userDb = userDb;
         }
 
+        [AllowAnonymous]
         public Grid Get(string slug)
         {
             try
@@ -41,6 +43,9 @@ namespace FractalApi.Controllers
         [HttpPut]
         public void Update(PartialGrid grid)
         {
+            if (!userDb.HasPermission(User.Identity.Name, grid.Id))
+                throw HttpExceptionFactory.Forbidden();
+
             if (!ModelState.IsValid)
                 throw HttpExceptionFactory.InvalidModel();
 
@@ -53,11 +58,15 @@ namespace FractalApi.Controllers
             }
         }
 
-        public void Delete(int Id)
+        [HttpDelete]
+        public void Delete(int id)
         {
-            if(db.Exsist(Id))
+            if(!userDb.HasPermission(User.Identity.Name, id))
+                throw HttpExceptionFactory.Forbidden();
+
+            if(db.Exsist(id))
             {
-                db.Delete(Id);
+                db.Delete(id);
             }
         }
     }

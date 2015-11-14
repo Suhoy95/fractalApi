@@ -10,23 +10,22 @@ using System.Web.Http;
 
 namespace FractalApi.Controllers
 {
+    [Authorize]
     public class GridItemController : ApiController
     {
         private IGridRepository db;
+        private IUserRepository userDb;
 
-        public GridItemController(IGridRepository db)
+        public GridItemController(IGridRepository db, IUserRepository userDb)
         {
             this.db = db;
+            this.userDb = userDb;
         }
 
         [HttpPost]
         public Item Create(Item grid)
         {
-            if (!ModelState.IsValid)
-                throw HttpExceptionFactory.InvalidModel();
-
-            if (!db.IsCorrectSlug(grid.slug, grid.id))
-                throw HttpExceptionFactory.BadSlug();
+            CheckGridItem(grid);
 
             return db.Create(grid);
         }
@@ -34,16 +33,24 @@ namespace FractalApi.Controllers
         [HttpPut]
         public void Update(Item grid)
         {
-            if (!ModelState.IsValid)
-                throw HttpExceptionFactory.InvalidModel();
-
-            if (!db.IsCorrectSlug(grid.slug, grid.id))
-                throw HttpExceptionFactory.BadSlug();
+            CheckGridItem(grid);
 
             if(db.Exsist(grid.id))
             {
                 db.Update(grid);
             }
-        }       
+        }
+
+        private void CheckGridItem(Item grid)
+        {
+            if (!userDb.HasPermission(User.Identity.Name, grid.gridId))
+                throw HttpExceptionFactory.Forbidden();
+
+            if (!ModelState.IsValid)
+                throw HttpExceptionFactory.InvalidModel();
+
+            if (!db.IsCorrectSlug(grid.slug, grid.id))
+                throw HttpExceptionFactory.BadSlug();
+        }
     }
 }

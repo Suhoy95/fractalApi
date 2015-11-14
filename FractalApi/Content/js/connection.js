@@ -154,9 +154,9 @@ function updateNote(item)
 function deleteNote(item)
 {
   var scope = this["scope"];
-  var url = "/api/note/" + item.id;
+  var url = "/api/note/";
   scope.messager.show("Delete Note...")
-  $http.delete(url)
+  $http.delete(url, note)
       .success(function(){
         scope.messager.tmpShow("Success", 3000);
         item.state = "success";

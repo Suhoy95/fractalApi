@@ -113,6 +113,7 @@ FractalControllers.controller("dataController",
         $scope.loadGrid();
     });
 
+    authManager.checkAuth();
 }]);
 
 FractalControllers.controller("gridController", ["$scope", "gridMaster", "$window", "$timeout", 

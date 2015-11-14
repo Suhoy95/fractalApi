@@ -58,6 +58,7 @@
     <Compile Include="DbProviders\NoteRepository.cs" />
     <Compile Include="DbProviders\UserRepository.cs" />
     <Compile Include="Entities\Article.cs" />
+    <Compile Include="Entities\Coords.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\Grid.cs" />
     <Compile Include="Entities\User.cs" />

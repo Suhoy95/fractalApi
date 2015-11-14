@@ -8,6 +8,7 @@ using Domain.Abstract;
 
 namespace FractalApi.Controllers
 {
+    [Authorize]
     public class CoordController : ApiController
     {
         private IItemRepository db;
