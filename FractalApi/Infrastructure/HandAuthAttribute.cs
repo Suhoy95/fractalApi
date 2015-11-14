@@ -8,11 +8,13 @@ using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http;
+using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
 namespace FractalApi.Infrastructure
 {
-    public class HandAuthAttribute : Attribute, IAuthorizationFilter
+    public class HandAuthAttribute : Attribute, IAuthenticationFilter
     {
         //http://www.asp.net/web-api/overview/security/authentication-filters
         public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
@@ -84,11 +86,9 @@ namespace FractalApi.Infrastructure
             return Task.FromResult(0);
         }
 
-        public bool AllowMultiple { get { return false; } }
-
-        public Task<System.Net.Http.HttpResponseMessage> ExecuteAuthorizationFilterAsync(System.Web.Http.Controllers.HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<System.Net.Http.HttpResponseMessage>> continuation)
+        public bool AllowMultiple
         {
-            throw new NotImplementedException();
+            get { return false; }
         }
     }
 }

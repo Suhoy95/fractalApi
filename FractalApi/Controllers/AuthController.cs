@@ -37,6 +37,12 @@ namespace FractalApi.Controllers
             return user.Login + ":" + token + "#" + name;
         }
 
+        [Authorize]
+        [HttpPost]
+        public void Check()
+        {
+        }
+
         [HttpGet]
         public String CreateUser(String login, String password)
         {

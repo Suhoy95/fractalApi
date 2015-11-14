@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FractalApi.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -9,6 +10,8 @@ namespace FractalApi
     {
         public static void Register(HttpConfiguration config)
         {
+            config.Filters.Add(new HandAuthAttribute() );
+
             config.Routes.MapHttpRoute(
                 name: "ApiWithId",
                 routeTemplate: "api/{controller}/{id}",

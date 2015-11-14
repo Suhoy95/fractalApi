@@ -2,8 +2,8 @@
 
 var FractalConnection = angular.module("FractalConnection", ["FractalItemFactory"]);
 
-FractalConnection.factory('connection', ["$http", "$location", "$window" ,"itemFactory", 
-                                         function($http, $location, $window, itemFactory) {
+FractalConnection.factory('connection', ["$http", "$location", "$timeout", "$window" ,"itemFactory", 
+                                         function($http, $location, $timeout, $window, itemFactory) {
 
     return { 
       home: home,
@@ -38,6 +38,7 @@ function loadGrid(slug)
 
   scope.messager.show("load " + url);
   $http.get(url).success(function(data) {
+      $timeout(function(){ scope.loading = false;}, 500);
       scope.messager.tmpShow("Loaded " + url, 3000);
       
       scope.items.splice(0, scope.items.length);

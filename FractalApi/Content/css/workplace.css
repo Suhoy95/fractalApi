@@ -1,6 +1,10 @@
 
 .workplace {
     position: relative;
+    min-height: 40em;
+    min-height: -moz-calc(100%-7em);
+    min-height: -webkit-calc(100%-7em);
+    min-height: calc(100%-7em);
     margin-top: 4em;
     z-index: 0;
 }

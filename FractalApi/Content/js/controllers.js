@@ -42,6 +42,12 @@ FractalControllers.controller("dataController",
         $scope.items = gridMaster.completeGrid($scope.items, $scope.setting);
     }
 
+    $scope.loadGrid = function()
+    {
+        $scope.loading = true;
+        $scope.connection.loadGrid();
+    }
+
     $scope.goHome = function()
     {
         connection.home();
@@ -56,10 +62,9 @@ FractalControllers.controller("dataController",
         }
         $scope.shower.clearBinding();
         $scope.linker.disable();
-        $scope.connection.loadGrid();
+        $scope.loadGrid();
     });
 
-    // $scope.connection.loadGrid();
 }]);
 
 FractalControllers.controller("gridController", ["$scope", "gridMaster", "$window", "$timeout", 
