@@ -14,7 +14,7 @@ namespace Domain.Abstract
         bool Exsist(int id);
         bool IsCorrectSlug(String slug, int id);
 
-        Item Create(Item grid);
+        Item Create(Item grid, String username);
         void Update(Item grid);
 
         void Update(PartialGrid grid);

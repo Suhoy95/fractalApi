@@ -27,7 +27,7 @@ namespace FractalApi.Controllers
         {
             CheckGridItem(grid);
 
-            return db.Create(grid);
+            return db.Create(grid, User.Identity.Name);
         }
 
         [HttpPut]

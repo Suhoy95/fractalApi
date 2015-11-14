@@ -113,7 +113,7 @@ FractalControllers.controller("dataController",
         $scope.loadGrid();
     });
 
-    authManager.checkAuth();
+
 }]);
 
 FractalControllers.controller("gridController", ["$scope", "gridMaster", "$window", "$timeout", 
@@ -165,6 +165,12 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
 
     $scope.deleteNote = function(item)
     {
+        if(item.id < 0 && item.title === "" && item.text === ""){
+            gridMaster.removeItem($scope.items, item);
+            $scope.completeGrid();
+            return;
+        }
+
         item.action = "deleting";
         if(!(item.title === "" && item.text === "") &&
             !$window.confirm("Вы уверены, что хотите удалить заметку?"))
@@ -223,6 +229,12 @@ FractalControllers.controller("itemController", ["$scope", "$window", "$timeout"
 
     $scope.deleteGrid = function(item)
     {
+        if(item.id < 0 && item.title === "" && item.text === ""){
+            gridMaster.removeItem($scope.items, item);
+            $scope.completeGrid();
+            return;
+        }
+
         item.action = "deleting";
         if(!(item.title === "" && item.text === "") &&
             !$window.confirm("Вы уверены, что хотите удалить лист?"))

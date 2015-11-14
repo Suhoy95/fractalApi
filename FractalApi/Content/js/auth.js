@@ -12,9 +12,11 @@ FractalAuth.factory('authManager', ["$http", "$cookies", function($http, $cookie
         badlogin: false,
         authorizate: authorizate,
         checkAuth: checkAuth,
+        checkPermission: checkPermission,
         changeName:changeName,
         out: out
     };
+    manager.checkAuth();
 
     return manager;
 
@@ -64,7 +66,7 @@ function out() {
 };
 
 function checkPermission(setting){
-    $http.post("/api/auth/HasPermission/" + setting.gridId)
+    $http.post("/api/auth/HasPermission/?id=" + setting.gridId)
         .success(function(permission){
             setting.hasPermission = permission;
         })

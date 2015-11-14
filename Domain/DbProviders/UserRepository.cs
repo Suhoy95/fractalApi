@@ -56,20 +56,52 @@ namespace Domain.DbProviders
 
         public bool GridAllowed(string login, int listId)
         {
-            cmd.CommandText = "EXEC UserHasPermission @login, @listId;";
+            cmd.CommandText = "EXEC GridAllowed @login, @listId;";
             CreateTextParameter(login, "login");
             CreateIntParameter(listId, "listId");
-            return 1 == (int)cmd.ExecuteScalar();
+            return 0 != (int)cmd.ExecuteScalar();
         }
 
         public bool ItemAllowed(string login, Item item)
         {
-            throw new NotImplementedException();
+            if (item.id < 0)
+                return GridAllowed(login, item.gridId);
+
+            cmd.CommandText = "EXEC ItemAllowed @login, @itemId;";
+            CreateTextParameter(login, "login");
+            CreateIntParameter(item.id, "itemId");
+            return 0 != (int)cmd.ExecuteScalar();
         }
 
         public bool CoordsAllowed(string login, Coords coords)
         {
-            throw new NotImplementedException();
+            var ids = GetUsersItemsIdForGrid(login, coords.GridId);
+            coords.coords = coords.coords.OrderBy(coord => coord[0]).ToArray();
+
+            if (ids.Count != coords.coords.Length)
+                return false;
+                
+            for (var i = 0; i < ids.Count; i++)
+                if (ids[i] != coords.coords[i][0])
+                    return false;
+
+            return true;
+        }
+
+        public List<int> GetUsersItemsIdForGrid(string login, int gridId)
+        {
+            cmd.CommandText = "EXEC GetListItemIds @login, @id;";
+            CreateTextParameter(login, "login");
+            CreateIntParameter(gridId, "id");
+
+            var res = new List<int>();
+            using(var dr = cmd.ExecuteReader())
+            {
+                while (dr.Read())
+                    res.Add(dr.GetInt32(0));
+            }
+
+            return res;
         }
     }
 }

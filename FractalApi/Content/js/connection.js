@@ -67,6 +67,7 @@ function loadGrid(slug)
       };
       scope.setPartialGrid();
       scope.completeGrid();
+      scope.authManager.checkPermission(scope.setting);
   }).error(function(data, status_code){
       $timeout(function(){ scope.loading = false;}, 500);
       if(status_code == 404){
@@ -179,7 +180,7 @@ function createGridItem(item)
           item.realId = data.id;
        }).error(function(data){
           if(data == "BadSlug"){
-            $window.alert("Ссылка /grid/" + partialGrid.Slug + " занята");
+            $window.alert("Ссылка /grid/" + scope.partialGrid.Slug + " занята");
             scope.messager.tmpShow("BadSlug", 3000);
             item.edit();
             return;

@@ -14,9 +14,9 @@ namespace FractalApi.Controllers
     public class CoordController : ApiController
     {
         private IItemRepository db;
-        private IUserRepository userDb;
+        private IPermissionChecker userDb;
 
-        public CoordController(IItemRepository db, IUserRepository userDb)
+        public CoordController(IItemRepository db, IPermissionChecker userDb)
         {
             this.db = db;
             this.userDb = userDb;
@@ -27,6 +27,8 @@ namespace FractalApi.Controllers
         {
             if (!ModelState.IsValid)
                 throw HttpExceptionFactory.InvalidModel();
+            if(!userDb.CoordsAllowed(User.Identity.Name, grid) && !User.IsInRole("Admin"))
+                throw HttpExceptionFactory.Forbidden();
 
             db.UpdateCoord(grid.coords);
         }

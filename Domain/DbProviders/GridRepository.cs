@@ -176,13 +176,14 @@ namespace Domain.DbProviders
             return 1 == (int)cmd.ExecuteScalar();
         }
 
-        public Item Create(Item grid)
+        public Item Create(Item grid, String username)
         {
             try
             {
                 BeginTransaction();
+                int userId = GetUserId(username);
                 grid = CreateItem(grid);
-                CreateGrid(grid);
+                CreateGrid(grid, userId);
                 EndTransaction();
                 return grid;
             }
@@ -193,13 +194,22 @@ namespace Domain.DbProviders
             }
         }
 
-        private void CreateGrid(Item grid)
+        private int GetUserId(string username)
         {
-            cmd.CommandText = "EXEC CreateList @slug, @id, @title, @text;";
+            ClearCommand();
+            cmd.CommandText = "Select Id From Users WHERE Login = @username;";
+            CreateTextParameter(username, "username");
+            return (int)cmd.ExecuteScalar();
+        }
+
+        private void CreateGrid(Item grid, int userid)
+        {
+            cmd.CommandText = "EXEC CreateList @slug, @id, @title, @text, @userid;";
             CreateTextParameter(grid.slug, "slug");
             CreateIntParameter(grid.id, "id");
             CreateTextParameter(grid.title, "title");
             CreateTextParameter(grid.text, "text");
+            CreateIntParameter(userid, "userid");
             cmd.ExecuteNonQuery();
             ClearCommand();
         }

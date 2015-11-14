@@ -47,7 +47,7 @@ namespace Domain.Entities
                 errors.Add(new ValidationResult("Превышена длина текста"));
             if (Slug.Length >= 255)
                 errors.Add(new ValidationResult("Превышена длянна ссылки"));
-            if (!Regex.IsMatch(@"^[a-zA-Z]+$", Slug))
+            if (!Regex.IsMatch(Slug, @"^[a-zA-Z]{0,255}$"))
                 errors.Add(new ValidationResult("Ссылка содержит не допустимые символы"));
             if (Width < 0 || Width > 20)
                 errors.Add(new ValidationResult("Недопустимая ширина листа"));
