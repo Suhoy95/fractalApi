@@ -13,10 +13,10 @@
             <input class="text" type="password" name="password" ng-model="authManager.password" required>
         </label> 
         <br>
-        <button ng-disabled="auth.$invalid" ng-click="authManager.authorizate()">Войти</button>
+        <button ng-disabled="auth.$invalid" ng-click="authManager.authorizate(setting)">Войти</button>
     </form>
     <div ng-show="authManager.isAuth">
         <p>Пользователь: {{authManager.name}}</p>
-        <button ng-click="authManager.out()">Выйти</button>
+        <button ng-click="authManager.out(); setting.hasPermission = false;">Выйти</button>
     </div>
 </div>

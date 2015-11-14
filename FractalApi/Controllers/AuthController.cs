@@ -43,6 +43,13 @@ namespace FractalApi.Controllers
         {
         }
 
+        [Authorize]
+        [HttpPost]
+        public bool HasPermission(int id)
+        {
+            return db.HasPermission(User.Identity.Name, id);
+        }
+
         [HttpGet]
         public String CreateUser(String login, String password)
         {

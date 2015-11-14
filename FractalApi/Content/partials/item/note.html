@@ -6,11 +6,11 @@
         
         <div class="controll clearfix">
             <button class="delete-item" title="Удалить" ng-click="deleteNote(item)"
-                    ng-show="editing_mode"></button>
+                    ng-show="canEdit()"></button>
             <button class="edit-item" title="Редактировать" ng-click="item.edit()"
-                    ng-show="editing_mode"></button>
+                    ng-show="canEdit()"></button>
             <span class="button sort-item" title="Переместить" 
-                  ng-show="shower.state() == 'grid' && editing_mode"></span>
+                  ng-show="shower.state() == 'grid' && canEdit()"></span>
             <button class="analogy" title="Показать аналогии" 
                     ng-click="setBinding(item, 'analogy')"
                     ng-disabled="item.analogy.length == 0">

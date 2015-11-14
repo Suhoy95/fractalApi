@@ -18,7 +18,7 @@ FractalAuth.factory('authManager', ["$http", "$cookies", function($http, $cookie
     manager.checkAuth();
     return manager;
 
-function authorizate(success) {
+function authorizate(setting) {
     manager.badlogin = false;
     $http.post('/api/auth/login', {Login: manager.login, Password: manager.password })
          .success(function (data) {
@@ -28,8 +28,7 @@ function authorizate(success) {
             manager.name = data[1];
             manager.login = manager.password = "";
             manager.isAuth = true;
-            if(success) 
-                success();
+            checkPermission(setting);
         })
          .error(function(data, status){
             if(status == 401)
@@ -64,5 +63,14 @@ function out() {
     $cookies.remove(cookieKey);
 };
 
+function checkPermission(setting){
+    $http.post("/api/auth/HasPermission/" + setting.gridId)
+        .success(function(permission){
+            setting.hasPermission = permission;
+        })
+        .error(function(){
+            setting.hasPermission = false;
+        });
+}
 
 }]);

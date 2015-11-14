@@ -15,11 +15,11 @@
         <button class="home" ng-click="goHome()"></button>
         <h1 ng-bind="setting.title" >Fractal#demo</h1>
         <div class="controll">
-            <button class="customization-button" ng-click="show_setting = !show_setting"></button>
+            <button class="customization-button" ng-show="setting.hasPermission" ng-click="show_setting = !show_setting"></button>
             <button class="login-button" ng-click="show_login = !show_login" ng-bind="authManager.isAuth ? 'Профиль':'Войти'"></button>
             <button class="information-button" ng-click="show_inf = !show_inf"></button>
-            <button ng-click="editing_mode = !editing_mode" ng-show="!editing_mode && setting.hasPermission " ng-bind="'Редактировать'"></button>
-            <button ng-click="editing_mode = !editing_mode" ng-show="editing_mode" ng-bind="'Выйти из режима редактирования'"></button>
+            <button ng-click="editing_mode = !editing_mode" ng-show="setting.hasPermission && !editing_mode" ng-bind="'Редактировать'"></button>
+            <button ng-click="editing_mode = !editing_mode" ng-show="canEdit()" ng-bind="'Выйти из режима редактирования'"></button>
             <button ng-click="shower.clearBinding()" ng-show="shower.state() !== 'grid'" ng-bind="'Вернуться к сетке элементов'"></button>
             <button ng-click="linker.disable()" ng-show="linker.isSelecting()" ng-bind="'Выйти из режима создания связей'"></button>      
         </div>

@@ -95,6 +95,11 @@ FractalControllers.controller("dataController",
         setting.fixedWidth = partialGrid.FixedWidth;
     };
 
+    $scope.editing_mode = false;
+    $scope.canEdit = function() {
+        return $scope.editing_mode && $scope.setting.hasPermission;
+    }
+
     $scope.$on('$locationChangeStart', function(event) {
         if(!gridMaster.isAllSave($scope.items) && 
            !$window.confirm("Не все изменения были сохранены.  Вы уверены, что хотите покинуть текущий лист?"))
