@@ -6,37 +6,40 @@
       <li ng-show="custom.title.$error.maxlength">Название не должно превышать 255 символов</li>
       <li ng-show="custom.description.$error.maxlength">Описание не должно превышать 8000 символов</li>
       <li ng-show="custom.slug.$error.required">Адресс страницы не заполнен</li>
-      <li ng-show="custom.slug.$error.pattern">Адресс страницы должен быть только из букв a-z</li>
+      <li ng-show="custom.slug.$error.pattern">Адресс страницы должен быть только из букв a-z, A-Z. Не длинеее 255 символов</li>
       <li ng-show="custom.width.$error.min">Минимальная ширина не может быть меньше 1</li>
       <li ng-show="custom.width.$error.max">Минимальная ширина не может быть больше 20</li>
+
+      <li ng-show="partialGrid.state == 'error'">Не удалось сохранить настройки страницы</li>
     </ul>
     <label>
         Название страницы: <input class="text" name="title" type="text" 
-        ng-model="setting.title"
+        ng-model="partialGrid.Title"
         required
         ng-maxlength="255" />
     </label>
     <label>
         Описание страницы:<br />
-        <textarea name="description" ng-model="setting.description" ng-maxlength="8000"></textarea>
+        <textarea name="description" ng-model="partialGrid.Text" ng-maxlength="8000"></textarea>
     </label>
     <label>
         Адресс страницы (/grid/...): <input class="text" type="text"
-                                    name="slug" ng-model="setting.slug" required
-                                    ng-pattern="/[a-zA-Z]+/" />
+                                    name="slug" ng-model="partialGrid.Slug" required
+                                    ng-pattern="/^[a-zA-Z]{0,255}$/" />
     </label>
     <label>
         Минимальная ширина: <input class="text" name="width" type="number" name="workplace-width" 
-                                   ng-model="setting.minWidth"
+                                   ng-model="partialGrid.Width"
                                    min="1"
                                    max="20"
                                    ng-change="completeGrid()"></label> 
     <label>
         <input type="checkbox" name="fixed-width" 
-                     ng-model="setting.fixedWidth"
+                     ng-model="partialGrid.FixedWidth"
                      ng-change="completeGrid()"> Зафиксировать ширину
     </label>
     <br>
-    <button>Сохранить</button>
+    <button ng-click="savePartialGrid()" ng-disabled="custom.$invalid">Сохранить</button> 
+    <button ng-click="setPartialGrid()">Сбросить</button>
   </form>
 </div>

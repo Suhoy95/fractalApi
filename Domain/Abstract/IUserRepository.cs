@@ -11,5 +11,6 @@ namespace Domain.Abstract
         String GetPassword(String login);
         String Login(String login, String token);
         void Create(String login, String password, String role);
+        bool HasPermission(string login, int listId);
     }
 }

@@ -38,8 +38,10 @@ namespace Domain.DbProviders
                     grid.Slug = dr.GetString(0);
                     grid.Id = dr.GetInt32(1);
                     grid.Title = dr.GetString(2);
+                    grid.Text = dr.GetString(3);
                     grid.Width = dr.GetInt32(4);
                     grid.FixedWidth = dr.GetBoolean(5);
+                    grid.HasPermission = false;
                     return dr.GetInt32(1);
                 }
             }
@@ -64,6 +66,7 @@ namespace Domain.DbProviders
                     }
                     column.Add(new Item() { 
                         id = dr.GetInt32(0),
+                        gridId = dr.GetInt32(1),
                         analogy = CreateId(dr, 4),
                         sub = CreateId(dr, 5),
                         sup = CreateId(dr, 6)
@@ -227,7 +230,14 @@ namespace Domain.DbProviders
 
         public void Update(PartialGrid grid)
         {
-            throw new NotImplementedException();
+            cmd.CommandText = "EXEC UpdatePartialList @id, @slug, @title, @text, @width, @fixedwidth;";
+            CreateIntParameter(grid.Id, "id");
+            CreateTextParameter(grid.Slug, "slug");
+            CreateTextParameter(grid.Title, "title");
+            CreateTextParameter(grid.Text, "text");
+            CreateIntParameter(grid.Width, "width");
+            CreateBitParameter(grid.FixedWidth, "fixedwidth");
+            cmd.ExecuteNonQuery();
         }
 
         public bool IsCorrectSlug(string slug, int id)

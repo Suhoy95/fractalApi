@@ -8,6 +8,7 @@ FractalConnection.factory('connection', ["$http", "$location", "$timeout", "$win
     return { 
       home: home,
       loadGrid: loadGrid,
+      updatePartialGird: updatePartialGird,
 
       createNote: createNote,
       updateNote: updateNote,
@@ -51,17 +52,23 @@ function loadGrid(slug)
       }
       scope.setting = {
             gridId: data.Id,
+            slug: data.Slug,
             title: data.Title,
+            text: data.Text,
             minWidth: data.Width,
             minHeight: 1,
             width: data.Width,
             fixedWidth: data.FixedWidth,
             pageTitle: data.PageTitle,
             pageDescription: data.PageDescription,
-            pageKeywords: data.PageKeywords
+            pageKeywords: data.PageKeywords,
+
+            hasPermission: data.HasPermission
       };
+      scope.setPartialGrid();
       scope.completeGrid();
   }).error(function(data, status_code){
+      $timeout(function(){ scope.loading = false;}, 500);
       if(status_code == 404){
         setNotFoundGrid(scope);
         return;
@@ -93,6 +100,24 @@ function setNotFoundGrid(scope)
         fixedWidth: true,
         pageTitle: "Страница не найдена - Fractal"
   };
+}
+
+function updatePartialGird(partialGrid)
+{
+  var scope = this["scope"];
+  partialGrid.state = "";
+  scope.messager.show("Update page customization...")
+  $http.put("/api/grid/", partialGrid)
+       .success(function(data){
+          scope.messager.tmpShow("Success", 3000);
+          partialGrid.state = "success";
+       }).error(function(data){
+          if(data == "BadSlug"){
+              $window.alert("Не удается сохранить лист по ссылке #/grid/" + partialGrid.Slug);
+          }
+          partialGrid.state = "error";
+          scope.messager.tmpShow("Fail in update page customization", 3000);
+       });
 }
 
 function createNote(item)
@@ -155,6 +180,7 @@ function createGridItem(item)
        }).error(function(data){
           if(data == "BadSlug"){
             $window.alert("Не удается сохранить лист по ссылке #/grid/" + item.slug);
+            scope.messager.tmpShow("BadSlug", 3000);
             item.edit();
             return;
           }
@@ -174,6 +200,7 @@ function updateGridItem(item)
        }).error(function(data){
           if(data == "BadSlug"){
             $window.alert("Не удается сохранить лист по ссылке #/grid/" + item.slug);
+            scope.messager.tmpShow("BadSlug", 3000);
             item.edit();
             return;
           }

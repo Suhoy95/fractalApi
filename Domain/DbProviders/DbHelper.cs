@@ -45,6 +45,21 @@ namespace Domain.DbProviders
             cmd.Parameters.Add(param);
         }
 
+        protected void CreateBitParameter(bool bit, String name)
+        {
+            if (cmd.Parameters.IndexOf(name) >= 0)
+            {
+                cmd.Parameters[name].Value = bit;
+                return;
+            }
+            var param = new SqlParameter();
+            param.ParameterName = name;
+            param.SqlDbType = SqlDbType.Bit;
+            param.Value = bit;
+            param.Direction = ParameterDirection.Input;
+            cmd.Parameters.Add(param);
+        }
+
         protected void CreateTextParameter(String text, String name)
         {
             if (cmd.Parameters.IndexOf(name) >= 0)

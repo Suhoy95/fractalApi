@@ -18,7 +18,7 @@ FractalAuth.factory('authManager', ["$http", "$cookies", function($http, $cookie
     manager.checkAuth();
     return manager;
 
-function authorizate() {
+function authorizate(success) {
     manager.badlogin = false;
     $http.post('/api/auth/login', {Login: manager.login, Password: manager.password })
          .success(function (data) {
@@ -28,6 +28,8 @@ function authorizate() {
             manager.name = data[1];
             manager.login = manager.password = "";
             manager.isAuth = true;
+            if(success) 
+                success();
         })
          .error(function(data, status){
             if(status == 401)

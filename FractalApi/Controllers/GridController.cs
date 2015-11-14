@@ -13,17 +13,23 @@ namespace FractalApi.Controllers
     public class GridController : ApiController
     {
         private IGridRepository db;
+        private IUserRepository userDb;
 
-        public GridController(IGridRepository db)
+        public GridController(IGridRepository db, IUserRepository userDb)
         {
             this.db = db;
+            this.userDb = userDb;
         }
 
         public Grid Get(string slug)
         {
             try
             {
-                return db.Get(slug);
+                var grid = db.Get(slug);
+                if(User.Identity.IsAuthenticated){
+                    grid.HasPermission = userDb.HasPermission(User.Identity.Name, grid.Id);
+                }
+                return grid;
             } catch(Exception ex)
             {
                 if (ex.Message == "Grid Not Found")

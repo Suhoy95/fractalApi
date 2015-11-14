@@ -5,8 +5,8 @@
 var FractalControllers = angular.module('FractalControllers', ["FractalMessager"]);
 
 FractalControllers.controller("dataController", 
-                            ["$scope", "$window", "connection", "authManager", "gridMaster", "shower", "linker", "messager",
-                            function($scope, $window, connection, authManager, gridMaster, shower, linker, messager){
+                            ["$scope", "$window", "$timeout" , "connection", "authManager", "gridMaster", "shower", "linker", "messager",
+                            function($scope, $window, $timeout, connection, authManager, gridMaster, shower, linker, messager){
 
     connection.scope = $scope;
     $scope.items = [];
@@ -52,6 +52,48 @@ FractalControllers.controller("dataController",
     {
         connection.home();
     }
+
+    $scope.setPartialGrid = function()
+    {
+        var setting = $scope.setting;
+        $scope.partialGrid = {
+            Id: setting.gridId,
+            Slug: setting.slug,
+            Title: setting.title,
+            Text: setting.text,
+            Width: setting.minWidth,
+            FixedWidth: setting.fixedWidth
+        }
+    }
+
+    $scope.savePartialGrid = function()
+    {
+        $scope.connection.updatePartialGird($scope.partialGrid);
+        $timeout(checkState, 500);
+
+        function checkState(){
+            if($scope.partialGrid.state == "success"){
+                $scope.partialGrid_to_setting();
+                return;
+            }
+            if($scope.partialGrid.state != "error")
+                $timeout(checkState, 500);
+        }
+    }
+
+    $scope.partialGrid_to_setting = function()
+    {
+
+        var setting = $scope.setting;
+        var partialGrid = $scope.partialGrid;
+
+        setting.gridId = partialGrid.Id;
+        setting.slug = partialGrid.Slug;
+        setting.title = partialGrid.Title;
+        setting.text = partialGrid.Text;
+        setting.minWidth = partialGrid.Width;
+        setting.fixedWidth = partialGrid.FixedWidth;
+    };
 
     $scope.$on('$locationChangeStart', function(event) {
         if(!gridMaster.isAllSave($scope.items) && 
