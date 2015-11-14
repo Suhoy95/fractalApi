@@ -41,6 +41,9 @@ namespace FractalApi.Controllers
         [HttpPut]
         public void Update(PartialGrid grid)
         {
+            if (!ModelState.IsValid)
+                throw HttpExceptionFactory.InvalidModel();
+
             if (!db.IsCorrectSlug(grid.Slug, grid.Id))
                 throw HttpExceptionFactory.BadSlug();
 

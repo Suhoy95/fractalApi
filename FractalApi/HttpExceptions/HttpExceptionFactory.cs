@@ -19,5 +19,15 @@ namespace FractalApi.HttpExceptions
 
             return new HttpResponseException(response);
         }
+
+        public static HttpResponseException InvalidModel()
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.BadRequest)
+            {
+                Content = new StringContent("Invalid Model")
+            };
+
+            return new HttpResponseException(response);
+        }
     }
 }

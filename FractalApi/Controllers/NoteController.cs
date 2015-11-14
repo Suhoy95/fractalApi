@@ -1,5 +1,6 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
+using FractalApi.HttpExceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,18 @@ namespace FractalApi.Controllers
         [HttpPost]
         public Item Create(Item note)
         {          
-            return db.Create(note);
+            if(ModelState.IsValid)
+                return db.Create(note);
+
+            throw HttpExceptionFactory.InvalidModel();
         }
 
         [HttpPut]
         public void Update(Item note)
         {
+            if(!ModelState.IsValid)
+                throw HttpExceptionFactory.InvalidModel();
+
             if (db.Exist(note.id))
             {
                 db.Update(note);

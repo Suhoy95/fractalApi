@@ -1,5 +1,6 @@
 ﻿using Domain.Abstract;
 using Domain.Entities;
+using FractalApi.HttpExceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,9 @@ namespace FractalApi.Controllers
         [HttpPost]
         public String Login(User user)
         {
+            if (!ModelState.IsValid)
+                throw HttpExceptionFactory.InvalidModel();
+
             user.Login = EvalMD5(user.Login);
             user.Password = EvalMD5(user.Password);
 
@@ -40,8 +44,7 @@ namespace FractalApi.Controllers
         [Authorize]
         [HttpPost]
         public void Check()
-        {
-        }
+        {}
 
         [Authorize]
         [HttpPost]

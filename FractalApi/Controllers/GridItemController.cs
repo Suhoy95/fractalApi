@@ -22,6 +22,9 @@ namespace FractalApi.Controllers
         [HttpPost]
         public Item Create(Item grid)
         {
+            if (!ModelState.IsValid)
+                throw HttpExceptionFactory.InvalidModel();
+
             if (!db.IsCorrectSlug(grid.slug, grid.id))
                 throw HttpExceptionFactory.BadSlug();
 
@@ -31,6 +34,9 @@ namespace FractalApi.Controllers
         [HttpPut]
         public void Update(Item grid)
         {
+            if (!ModelState.IsValid)
+                throw HttpExceptionFactory.InvalidModel();
+
             if (!db.IsCorrectSlug(grid.slug, grid.id))
                 throw HttpExceptionFactory.BadSlug();
 
