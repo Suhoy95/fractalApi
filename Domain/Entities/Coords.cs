@@ -14,7 +14,13 @@ namespace Domain.Entities
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            return null;
+            var errors = new List<ValidationResult>();
+            
+            foreach (var coord in coords)
+                if (coord.Length != 3)
+                    errors.Add(new ValidationResult("Bad coord"));
+            
+            return errors;
         }
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="Abstract\IGridRepository.cs" />
     <Compile Include="Abstract\IItemRepository.cs" />
     <Compile Include="Abstract\INoteRepository.cs" />
+    <Compile Include="Abstract\IPermissionChecker.cs" />
     <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="DbProviders\ConnectProvider.cs" />
     <Compile Include="DbProviders\DbHelper.cs" />

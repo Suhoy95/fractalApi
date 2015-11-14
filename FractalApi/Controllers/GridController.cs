@@ -14,9 +14,9 @@ namespace FractalApi.Controllers
     public class GridController : ApiController
     {
         private IGridRepository db;
-        private IUserRepository userDb;
+        private IPermissionChecker userDb;
 
-        public GridController(IGridRepository db, IUserRepository userDb)
+        public GridController(IGridRepository db, IPermissionChecker userDb)
         {
             this.db = db;
             this.userDb = userDb;
@@ -29,7 +29,7 @@ namespace FractalApi.Controllers
             {
                 var grid = db.Get(slug);
                 if(User.Identity.IsAuthenticated){
-                    grid.HasPermission = userDb.HasPermission(User.Identity.Name, grid.Id);
+                    grid.HasPermission = userDb.GridAllowed(User.Identity.Name, grid.Id);
                 }
                 return grid;
             } catch(Exception ex)
@@ -43,7 +43,7 @@ namespace FractalApi.Controllers
         [HttpPut]
         public void Update(PartialGrid grid)
         {
-            if (!userDb.HasPermission(User.Identity.Name, grid.Id))
+            if (!userDb.GridAllowed(User.Identity.Name, grid.Id))
                 throw HttpExceptionFactory.Forbidden();
 
             if (!ModelState.IsValid)
@@ -61,7 +61,7 @@ namespace FractalApi.Controllers
         [HttpDelete]
         public void Delete(int id)
         {
-            if(!userDb.HasPermission(User.Identity.Name, id))
+            if(!userDb.GridAllowed(User.Identity.Name, id))
                 throw HttpExceptionFactory.Forbidden();
 
             if(db.Exsist(id))

@@ -15,10 +15,12 @@ namespace FractalApi.Controllers
     public class AuthController : ApiController
     {
         private IUserRepository db;
+        private IPermissionChecker checker;
 
-        public AuthController(IUserRepository db)
+        public AuthController(IUserRepository db, IPermissionChecker checker)
         {
             this.db = db;
+            this.checker = checker;
         }
 
         [HttpPost]
@@ -50,7 +52,7 @@ namespace FractalApi.Controllers
         [HttpPost]
         public bool HasPermission(int id)
         {
-            return db.HasPermission(User.Identity.Name, id);
+            return checker.GridAllowed(User.Identity.Name, id);
         }
 
         [Authorize]

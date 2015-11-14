@@ -1,4 +1,5 @@
 ﻿using Domain.Abstract;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.DbProviders
 {
-    public class UserRepository : DbHelper, IUserRepository
+    public class UserRepository : DbHelper, IUserRepository, IPermissionChecker
     {
         public string GetPassword(string login)
         {
@@ -34,14 +35,6 @@ namespace Domain.DbProviders
             cmd.ExecuteNonQuery();
         }
 
-        public bool HasPermission(string login, int listId)
-        {
-            cmd.CommandText = "EXEC UserHasPermission @login, @listId;";
-            CreateTextParameter(login, "login");
-            CreateIntParameter(listId, "listId");
-            return 1 == (int)cmd.ExecuteScalar();
-        }
-
         public async Task<String> GetRoleAsync(String login, String token)
         {
             cmd.CommandText = "EXEC Auth @login, @token;";
@@ -59,6 +52,24 @@ namespace Domain.DbProviders
             CreateTextParameter(login, "login");
             CreateTextParameter(name, "name");
             cmd.ExecuteNonQuery();
+        }
+
+        public bool GridAllowed(string login, int listId)
+        {
+            cmd.CommandText = "EXEC UserHasPermission @login, @listId;";
+            CreateTextParameter(login, "login");
+            CreateIntParameter(listId, "listId");
+            return 1 == (int)cmd.ExecuteScalar();
+        }
+
+        public bool ItemAllowed(string login, Item item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CoordsAllowed(string login, Coords coords)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -14,9 +14,9 @@ namespace FractalApi.Controllers
     public class NoteController : ApiController
     {
         private INoteRepository db;
-        private IUserRepository userDb;
+        private IPermissionChecker userDb;
 
-        public NoteController(INoteRepository db, IUserRepository userDb)
+        public NoteController(INoteRepository db, IPermissionChecker userDb)
         {
             this.db = db;
             this.userDb = userDb;
@@ -54,7 +54,7 @@ namespace FractalApi.Controllers
 
         private void CheckNote(Item note)
         {
-            if (!userDb.HasPermission(User.Identity.Name, note.gridId))
+            if (!userDb.ItemAllowed(User.Identity.Name, note))
                 throw HttpExceptionFactory.Forbidden();
 
             if (!ModelState.IsValid)

@@ -14,9 +14,9 @@ namespace FractalApi.Controllers
     public class GridItemController : ApiController
     {
         private IGridRepository db;
-        private IUserRepository userDb;
+        private IPermissionChecker userDb;
 
-        public GridItemController(IGridRepository db, IUserRepository userDb)
+        public GridItemController(IGridRepository db, IPermissionChecker userDb)
         {
             this.db = db;
             this.userDb = userDb;
@@ -43,7 +43,7 @@ namespace FractalApi.Controllers
 
         private void CheckGridItem(Item grid)
         {
-            if (!userDb.HasPermission(User.Identity.Name, grid.gridId))
+            if (!userDb.ItemAllowed(User.Identity.Name, grid))
                 throw HttpExceptionFactory.Forbidden();
 
             if (!ModelState.IsValid)

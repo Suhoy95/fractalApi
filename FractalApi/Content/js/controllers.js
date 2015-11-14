@@ -131,8 +131,11 @@ FractalControllers.controller("gridController", ["$scope", "gridMaster", "$windo
         }, 0);
 
         updateCoordTimer = $timeout(function(){
-            var coord = gridMaster.getItemsCoord($scope.items);
-            $scope.connection.updateCoord(coord);
+            var coords = gridMaster.getItemsCoord($scope.items);
+            $scope.connection.updateCoord({
+                                        GridId:$scope.setting.gridId, 
+                                        coords:coords
+                                    });
         }, 500);
 
     };
