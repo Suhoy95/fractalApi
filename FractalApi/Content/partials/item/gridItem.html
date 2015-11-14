@@ -63,8 +63,14 @@
     </div>
 
 
-    <div class="item grid edit" ng-switch-when="edit"> 
-        <h2><input type="text" class="title" ng-model="item.title" ></h2>
+    <div class="item grid edit" ng-switch-when="edit">
+        <form name="griditem">
+
+        <h2>
+            <input type="text" class="title" name="title" 
+                   ng-model="item.title" 
+                   ng-maxlength="255" >
+        </h2>
         <div class="controll clearfix">
             <button class="delete-item" title="Удалить" ng-click="deleteNote(item)"></button>
             <span class="button sort-item" title="Переместить"  ng-show="shower.state() == 'grid'"></span>
@@ -87,9 +93,22 @@
                         {{item.sup.length}}
             </button>                   
         </div>
-        <textarea class="description" ng-model="item.text"></textarea>
-        <label>Ссылка: #/grid/<input type="text" class="slug" ng-model="item.slug" /></label>
-        <button class="save-note" ng-click="saveGridItem(item)">Сохранить</button>
+        <ul class="error">
+            <li ng-show="griditem.title.$error.maxlength">Заголовок не должен превышать 255 символов</li>
+            <li ng-show="griditem.text.$error.maxlength">
+                Описание листа не должено превышать 8000 символов
+            </li>
+            <li ng-show="griditem.slug.$error.required">Лист должен иметь ссылку</li>
+            <li ng-show="griditem.slug.$error.pattern">Ссылка может состоять только из букв a-z</li>
+        </ul>
+        <textarea class="description" name="text" ng-model="item.text"
+        ng-maxlength="8000"></textarea>
+        <label>Ссылка: #/grid/
+            <input type="text" class="slug" name="slug" 
+            ng-model="item.slug"  required
+            ng-pattern="/^[a-zA-Z]{0,255}$/" />
+        </label>
+        <button class="save-note" ng-disabled="griditem.$invalid" ng-click="saveGridItem(item)">Сохранить</button>
     </div>
 
      <div class="item note error" ng-switch-when="error"> 

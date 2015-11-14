@@ -74,6 +74,7 @@ FractalControllers.controller("dataController",
         function checkState(){
             if($scope.partialGrid.state == "success"){
                 $scope.partialGrid_to_setting();
+                $scope.completeGrid();
                 return;
             }
             if($scope.partialGrid.state != "error")

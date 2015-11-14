@@ -113,7 +113,7 @@ function updatePartialGird(partialGrid)
           partialGrid.state = "success";
        }).error(function(data){
           if(data == "BadSlug"){
-              $window.alert("Не удается сохранить лист по ссылке #/grid/" + partialGrid.Slug);
+              $window.alert("Ссылка /grid/" + partialGrid.Slug + " занята");
           }
           partialGrid.state = "error";
           scope.messager.tmpShow("Fail in update page customization", 3000);
@@ -179,7 +179,7 @@ function createGridItem(item)
           item.realId = data.id;
        }).error(function(data){
           if(data == "BadSlug"){
-            $window.alert("Не удается сохранить лист по ссылке #/grid/" + item.slug);
+            $window.alert("Ссылка /grid/" + partialGrid.Slug + " занята");
             scope.messager.tmpShow("BadSlug", 3000);
             item.edit();
             return;
@@ -199,7 +199,7 @@ function updateGridItem(item)
           scope.messager.tmpShow("Success", 3000);
        }).error(function(data){
           if(data == "BadSlug"){
-            $window.alert("Не удается сохранить лист по ссылке #/grid/" + item.slug);
+            $window.alert("Ссылка /grid/" + partialGrid.Slug + " занята");
             scope.messager.tmpShow("BadSlug", 3000);
             item.edit();
             return;

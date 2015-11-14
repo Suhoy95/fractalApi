@@ -59,8 +59,14 @@
     </div>
 
 
-    <div class="item note edit" ng-switch-when="edit"> 
-        <h2><input type="text" class="title" ng-model="item.title" ></h2>
+    <div class="item note edit" ng-switch-when="edit">
+    <form name="note"> 
+        <h2>
+            <input type="text" class="title" name="title" 
+                   ng-model="item.title" 
+                   ng-maxlength="255" >
+        </h2>
+
         <div class="controll clearfix">
             <button class="delete-item" title="Удалить" ng-click="deleteNote(item)"></button>
             <span class="button sort-item" title="Переместить"  ng-show="shower.state() == 'grid'"></span>
@@ -83,8 +89,16 @@
                         {{item.sup.length}}
             </button>                   
         </div>
-        <textarea class="description" ng-model="item.text"></textarea>
-        <button class="save-note" ng-click="saveNote(item)">Сохранить</button>
+        <ul class="error">
+            <li ng-show="note.title.$error.maxlength">Заголовок не должен превышать 255 символов</li>
+            <li ng-show="note.text.$error.maxlength">
+                Текст заметки не должен превышать 8000 символов
+            </li>
+        </ul>
+        <textarea class="description" name="text" ng-model="item.text"
+        ng-maxlength="8000"></textarea>
+        <button class="save-note" ng-disabled="note.$invalid" ng-click="saveNote(item)">Сохранить</button>
+    </form>
     </div>
 
     <div class="item note error" ng-switch-when="error"> 

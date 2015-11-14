@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html ng-app="FractalApp" ng-controller="dataController">
 <head>
-    <title ng-bind="setting.pageTitle">Fractal</title>
+    <title ng-bind="setting.title">Fractal</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/Content/css/style.css">
     <link rel="stylesheet" type="text/css" href="/Content/css/header.css">
@@ -35,7 +35,7 @@
 
     <div ng-switch="shower.state()" style="min-height: 40em;">
         <div ng-switch-when="grid">
-            <div class="workplace clearfix" ng-controller="gridController" complite-width="{{setting.width}}">
+            <div class="workplace clearfix" ng-controller="gridController" complite-width="{{setting.width -(!canEdit() && !setting.fixedWidth?1:0)}}">
 
                 <div class="column" ui-sortable="sortableOptions" ng-repeat="column in items" ng-model="column">
                     <div ng-repeat="item in column">

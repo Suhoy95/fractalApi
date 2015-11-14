@@ -6,11 +6,11 @@
         </ul>
         <label>
             <p>Логин:</p>
-            <input class="text" type="text" name="login" ng-model="authManager.login" required>
+            <input class="text" type="text" name="login" ng-model="authManager.login" required />
         </label>
         <label>
             <p>Пароль:</p>
-            <input class="text" type="password" name="password" ng-model="authManager.password" required>
+            <input class="text" type="password" name="password" ng-model="authManager.password" required />
         </label> 
         <br>
         <button ng-disabled="auth.$invalid" ng-click="authManager.authorizate(setting)">Войти</button>
