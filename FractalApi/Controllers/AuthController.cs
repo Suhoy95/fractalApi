@@ -50,6 +50,13 @@ namespace FractalApi.Controllers
             return db.HasPermission(User.Identity.Name, id);
         }
 
+        [Authorize]
+        [HttpPost]
+        public void ChangeName(String name)
+        {
+            db.UpdateName(User.Identity.Name, name);
+        }
+
         [HttpGet]
         public String CreateUser(String login, String password)
         {

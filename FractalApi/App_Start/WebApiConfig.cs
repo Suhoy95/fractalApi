@@ -13,16 +13,16 @@ namespace FractalApi
             config.Filters.Add(new HandAuthAttribute() );
 
             config.Routes.MapHttpRoute(
-                name: "ApiWithId",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: null,
-                constraints: new { id = @"\d+"}
-            );
-
-            config.Routes.MapHttpRoute(
                 name: "AuthApi",
                 routeTemplate: "api/auth/{action}",
                 defaults: new { controller = "Auth"}
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "ApiWithId",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: null,
+                constraints: new { id = @"\d+" }
             );
 
             config.Routes.MapHttpRoute(

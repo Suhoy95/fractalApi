@@ -17,6 +17,18 @@
     </form>
     <div ng-show="authManager.isAuth">
         <p>Пользователь: {{authManager.name}}</p>
+        <form name="authname">
+            <ul class="error">
+            <li ng-show="authname.name.$error.required">Не заполнено поле имени</li>
+            <li ng-show="authname.name.$error.maxlength">Имя не может быть длиннее 255 символов</li>
+            </ul>
+            <label>
+                <p>Сменить имя</p>
+                <input class="text" type="text" name="name" ng-model="authManager.nameclone" 
+                required ng-maxlength="255"/>
+            </label>
+            <button ng-disabled="authname.$invalid" ng-click="authManager.changeName()">Сохранить</button>
+        </from>
         <button ng-click="authManager.out(); setting.hasPermission = false;">Выйти</button>
     </div>
 </div>

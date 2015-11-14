@@ -51,5 +51,14 @@ namespace Domain.DbProviders
             var res = await cmd.ExecuteScalarAsync();
             return res == null ? null : (String)res;
         }
+
+
+        public void UpdateName(string login, string name)
+        {
+            cmd.CommandText = "EXEC ChangeName @login, @name;";
+            CreateTextParameter(login, "login");
+            CreateTextParameter(name, "name");
+            cmd.ExecuteNonQuery();
+        }
     }
 }

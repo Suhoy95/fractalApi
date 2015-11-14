@@ -12,6 +12,7 @@ FractalAuth.factory('authManager', ["$http", "$cookies", function($http, $cookie
         badlogin: false,
         authorizate: authorizate,
         checkAuth: checkAuth,
+        changeName:changeName,
         out: out
     };
 
@@ -25,7 +26,7 @@ function authorizate(setting) {
             $cookies.put(cookieKey, data);
             data = data.split("#");
             $http.defaults.headers.common.Authorization = 'Basic ' + data[0];            
-            manager.name = data[1];
+            manager.nameclone = manager.name = data[1];
             manager.login = manager.password = "";
             manager.isAuth = true;
             checkPermission(setting);
@@ -46,7 +47,7 @@ function checkAuth(){
     $http.defaults.headers.common.Authorization = 'Basic ' + token[0];     
     $http.post('/api/auth/check')
          .success(function(){
-            manager.name = token[1];
+            manager.nameclone = manager.name = token[1];
             manager.login = manager.password = "";
             manager.isAuth = true;  
          })
@@ -71,6 +72,15 @@ function checkPermission(setting){
         .error(function(){
             setting.hasPermission = false;
         });
+}
+
+function changeName(){
+    if(manager.name == manager.nameclone)
+        return;
+    $http.post("/api/auth/changename?name=" + manager.nameclone)
+         .success(function(){
+            manager.name = manager.nameclone;
+         });
 }
 
 }]);
